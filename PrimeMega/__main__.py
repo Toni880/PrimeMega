@@ -81,10 +81,10 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
- ───「[PrimeMegaRobot](https://telegra.ph/file/bfc4bb0c14ccde2903dff.jpg)」───
-*Hi There,*'
+ ───「[{}](https://telegra.ph/file/1da0ff9b5983912852f83.jpg)」───
+*Hi {},*'
 ────────────────────
-PrimeMega a powerful group management bot built to help you manage your group!
+Prime Mega a powerful group management bot built to help you manage and play music in your group!
 ────────────────────
 Hit the /help or tap on button to se available command on me.
 """
@@ -92,7 +92,7 @@ Hit the /help or tap on button to se available command on me.
 buttons = [
         [
         InlineKeyboardButton(
-            text="➕️ Add Primemega to tour group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
+            text="➕️ Add Prime Mega to tour group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
         ),
     ],
     [
@@ -119,7 +119,7 @@ DONATE_STRING = """Heya, glad to hear you want to donate!
  Supporting isnt always financial! [Prime update](t.me/PrimeSupportChannel) \
  Those who cannot provide monetary support are welcome to help us develop the bot at ."""
 
-GROUPSTART_IMG= "https://telegra.ph/file/2ae0a0f626c5665112b7f.jpg"
+GROUPSTART_IMG= "https://telegra.ph/file/1da0ff9b5983912852f83.jpg"
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -392,7 +392,8 @@ def PrimeMega_about_callback(update, context):
                     InlineKeyboardButton(text="T & C", callback_data="aboutmanu_tac")
                   ],
                  [
-                    InlineKeyboardButton(text="❔Help & Commands", callback_data="help_back")
+                    InlineKeyboardButton(text="❔Help & Commands", callback_data="help_back"),
+                    InlineKeyboardButton(text="ᴍᴜsɪᴄ ᴘʟᴀʏᴇʀ", callback_data="source_")
                  ],
                  [
                     InlineKeyboardButton(text="► Back ◄", callback_data="aboutmanu_back")
@@ -413,7 +414,7 @@ def PrimeMega_about_callback(update, context):
         query.message.edit_text(
             text=f"* ｢ BASIC HELP 」*"
                  f"\nIf You Can Also Add {dispatcher.bot.first_name} To Your Chats By Clicking [Here](http://t.me/{dispatcher.bot.username}?startgroup=true) And Selecting Chat. \n"
-                 f"\n\nRobot {dispatcher.bot.first_name} by Just Clicking [Here](https://t.me/Xbarok).\n"
+                 f"\n\nRobot {dispatcher.bot.first_name} by Just Clicking [Here](https://t.me/Bukan_guudlooking).\n"
                  f"",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
@@ -426,13 +427,46 @@ def PrimeMega_about_callback(update, context):
         )
     elif query.data == "aboutmanu_credit":
         query.message.edit_text(
-            text=f"*{dispatcher.bot.first_name} Is A Powerful Bot For Managing Groups With Additional Features.*"
-                 f"\n\nFork Of [EmikoRobot](https://github.com/Kennedy-ex/emikoRobot) + [PrimeMegaBot](https://github.com/Tonic990/PrimeMega)."
-                 f"\n\n{dispatcher.bot.first_name}'s Licensed Under The GNU _(General Public License v3.0)_"
-                 f"\n\nIf Any Question About {dispatcher.bot.first_name}, \nLet Us Know At @{SUPPORT_CHAT}.",
+            text=f"<b>๏ Credis for Prime</b>\n"
+            f"\nHere Developers Making The Prime Mega",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="『TØNIC』", url="t.me/Bukan_guudlooking"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="ɢᴏ ʙᴀᴄᴋ​", callback_data="aboutmanu_"),
+                 
+                 ]
+                ]
+            ),
+        )
+
+def Source_about_callback(update, context):
+    query = update.callback_query
+    if query.data == "source_":
+        query.message.edit_text(
+            text="๏›› This advance command for Musicplayer."
+            "\n\n๏ Command for admins only."
+            "\n • `/reload` - For refreshing the adminlist."
+            "\n • `/pause` - To pause the playback."
+            "\n • `/resume` - To resuming the playback You've paused."
+            "\n • `/skip` - To skipping the player."
+            "\n • `/end` - For end the playback."
+            "\n • `/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
+            "\n\n๏ Command for all members."
+            "\n • `/play` <query /reply audio> - Playing music via YouTube."
+            "\n • `/playlist` - To playing a playlist of groups or your personal playlist",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="► Back ◄", callback_data="aboutmanu_tac")]]),
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="ɢᴏ ʙᴀᴄᴋ​", callback_data="aboutmanu_tac")
+                 ]
+                ]
+            ),
         )
 
     elif query.data == "aboutmanu_permis":
