@@ -18,23 +18,17 @@ from PrimeMega import (
     LOGGER,
     OWNER_ID,
     PORT,
+    SUPPORT_CHAT,
     TOKEN,
     URL,
     WEBHOOK,
     SUPPORT_CHAT,
-    BOT_USERNAME,
-    BOT_NAME,
-    EVENT_LOGS,
-    HELP_IMG,
-    GROUP_START_IMG,
-    NAGISA_PHOTO,
     dispatcher,
     StartTime,
     telethn,
+    pbot,
     updater,
-    pgram,
-    ubot,
-    )
+)
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
