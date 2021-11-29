@@ -1,16 +1,16 @@
 {
-      "name": "Skyzu Robot",
-      "description": "A Powerful  Telegram group management bot with anime theme.",
+      "name": "Prime Mega",
+      "description": "A Powerful  Telegram group management bot with autobots theme.",
       "keywords": [
          "telegram",
          "advance",
          "group",
          "manager",
-         "naorobot"
+         "Prime Mega"
       ],
     
-   "logo":    "https://telegra.ph/file/56811b69cbcece20bbebf.jpg",  
-   "repository": "https://github.com/Skyzu/SkyzuRobot",
+   "logo":    "https://telegra.ph/file/1da0ff9b5983912852f83.jpg",  
+   "repository": "https://github.com/Tonic990/PrimeMega",
    "addons": [
           {
          "options": {
@@ -34,12 +34,12 @@
          "value": ""
       },
       "API_ID": {
-         "description": "Get API_ID from my.telegram.org, used for telethon based modules.",
+         "description": "Get API_ID from my.telegram.org or @PrimeApiBot, used for telethon based modules.",
          "required": true,
          "value": ""
       },
       "API_HASH": {
-         "description": "Get API_HASH from my.telegram.org, used for telethon based modules.",
+         "description": "Get API_HASH from my.telegram.org or @PrimeApiBot, used for telethon based modules.",
          "required": true,
          "value": ""
       },    
@@ -51,7 +51,7 @@
       "OWNER_ID": {
          "description": "Your user ID as an integer.",
          "required": true,
-         "value": "2088106582"
+         "value": "1416529201"
      },
 
       "STRING_SESSION": {
@@ -69,7 +69,7 @@
       },
       "BOT_USERNAME": {
          "description": "username of your bot without the @",
-         "value": "SkyzuRobot"
+         "value": "PrimeMegaBot"
       },
 
       "BOT_ID": {
@@ -79,12 +79,12 @@
 
       "OWNER_USERNAME": {
          "description": "Your username without the @",
-         "value": "skyzu"
+         "value": "Bukan_guudlooking"
       },
       "SUPPORT_CHAT": {
          "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to masha support than consider you made an enemy.",
          "required": true,
-         "value": "skyzusupport"
+         "value": "PrimeSupportGroup"
       },
       "MONGO_DB_URI": {
          "description": "Required for database connections.",
@@ -102,12 +102,12 @@
      "EVENT_LOGS": {
          "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-123456'",
          "required": true,
-         "value": "-1001626554919"
+         "value": "-1001376025003"
       },
       "JOIN_LOGGER": {
          "description": "A channel where bot will print who added it to what group, useful during debugging or spam handling.",
          "required": true,
-         "value": "-1001626554919"
+         "value": "-1001376025003"
       },      
       "CASH_API_KEY": {
          "description": "Required for currency converter. Get yours from https://www.alphavantage.co/support/#api-key",
@@ -201,7 +201,7 @@
       "DONATION_LINK": {
          "description": "Optional: link where you would like to receive donations. If you are a noob, better leave it linking to paul",
          "required": false,
-         "value": "https://www.paypal.me/PaulSonOfLars"
+         "value": ""
       },
       "DEL_CMDS": {
          "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
