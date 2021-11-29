@@ -127,7 +127,7 @@ Haven't slept since: {}
 
 buttons = [
                     [
-                        InlineKeyboardButton(text=f"Add {BOT_NAME} To Your Group", url=f"t.me/PrimeMegaBot?startgroup=true")
+                        InlineKeyboardButton(text=f"Add To Your Group", url=f"t.me/PrimeMegaBot?startgroup=true")
                     ],
                     [
                         InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
