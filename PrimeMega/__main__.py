@@ -393,7 +393,6 @@ def PrimeMega_about_callback(update, context):
                   ],
                  [
                     InlineKeyboardButton(text="❔Help & Commands", callback_data="help_back"),
-                    InlineKeyboardButton(text="ᴍᴜsɪᴄ ᴘʟᴀʏᴇʀ", callback_data="source_")
                  ],
                  [
                     InlineKeyboardButton(text="► Back ◄", callback_data="aboutmanu_back")
@@ -502,45 +501,6 @@ def PrimeMega_about_callback(update, context):
                     InlineKeyboardButton(text="► Back ◄", callback_data="aboutmanu_")
                   ]])
         )
-def Source_about_callback(update, context):
-    query = update.callback_query
-    if query.data == "source_":
-        query.message.edit_text(
-            text="๏›› This advance command for Musicplayer."
-            "\n\n๏ Command for admins only."
-            "\n • `/reload` - For refreshing the adminlist."
-            "\n • `/pause` - To pause the playback."
-            "\n • `/resume` - To resuming the playback You've paused."
-            "\n • `/skip` - To skipping the player."
-            "\n • `/end` - For end the playback."
-            "\n • `/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
-            "\n\n๏ Command for all members."
-            "\n • `/play` <query /reply audio> - Playing music via YouTube."
-            "\n • `/playlist` - To playing a playlist of groups or your personal playlist",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                    InlineKeyboardButton(text="ɢᴏ ʙᴀᴄᴋ​", callback_data="aboutmanu_tac")
-                 ]
-                ]
-            ),
-        )
-   elif query.data == "source_back":
-      first_name = update.effective_user.first_name
-        query.message.edit_text(
-                PM_START_TEXT.format(
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),
-                reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-                disable_web_page_preview=True,
-        )
-
 
 @run_async
 def help_button(update, context):
@@ -890,8 +850,6 @@ def main():
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
     
     about_callback_handler = CallbackQueryHandler(PrimeMega_about_callback, pattern=r"aboutmanu_")
-    
-    source_callback_handler = CallbackQueryHandler(Source_about_callback, pattern=r"source_")
     
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
     is_chat_allowed_handler = MessageHandler(Filters.group, is_chat_allowed)
