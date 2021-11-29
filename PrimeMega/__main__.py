@@ -416,7 +416,7 @@ def PrimeMega_about_callback(update, context):
     elif query.data == "aboutmanu_credit":
         query.message.edit_text(
             text=f"*{dispatcher.bot.first_name} Is A Powerful Bot For Managing Groups With Additional Features.*"
-                 f"\n\nFork Of [Nao](https://github.com/gizmostuffin/Kennedy) + [Saitama](https://github.com/AnimeKaizoku/SaitamaRobot)."
+                 f"\n\nFork Of [EmikoRobot](https://github.com/Kennedy-ex/emikoRobot) + [PrimeMegaBot](https://github.com/Tonic990/PrimeMega)."
                  f"\n\n{dispatcher.bot.first_name}'s Licensed Under The GNU _(General Public License v3.0)_"
                  f"\n\nIf Any Question About {dispatcher.bot.first_name}, \nLet Us Know At @{SUPPORT_CHAT}.",
             parse_mode=ParseMode.MARKDOWN,
