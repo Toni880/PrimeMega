@@ -94,9 +94,9 @@ buttons = [
         InlineKeyboardButton(text="ʜᴇʟᴘ & ᴄᴏᴍᴍᴀɴᴅ​", callback_data="help_back"),
     ],
     [
-        InlineKeyboardButton(text="ᴀʙᴏᴜᴛ​", callback_data="Skyzu_"),
+        InlineKeyboardButton(text="ᴀʙᴏᴜᴛ", callback_data="Skyzu_"),
         InlineKeyboardButton(
-            text="ᴛʀʏ ɪɴʟɪɴᴇ​​​", switch_inline_query_current_chat=""
+            text="ᴛʀʏ ɪɴʟɪɴᴇ​", switch_inline_query_current_chat=""
         ),
     ],
     [
@@ -112,7 +112,6 @@ buttons = [
             text="➗ ᴀᴅᴅ sᴋʏᴢᴜ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ​ ➗", url="t.me/SkyzuRobot?startgroup=new"),
     ],
 ]
-
 
 HELP_STRINGS = """
 Click on the button bellow to get description about specifics command."""
