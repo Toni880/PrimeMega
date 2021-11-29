@@ -65,11 +65,11 @@ RUN apt update && apt upgrade -y && \
 RUN pip3 install --upgrade pip setuptools
 
 # Copy Python Requirements to /root/SkyzuRobot 
-RUN git clone -b shiken https://github.com/kennedy-ex/SkyzuRobot /root/SkyzuRobot
-WORKDIR /root/SkyzuRobot
+RUN git clone -b shiken https://github.com/Tonic990/PrimeMega /root/PrimeMega
+WORKDIR /root/PrimeMega
 
-#Copy config file to /root/SkyzuRobot/SkyzuRobot
-COPY ./SkyzuRobot/sample_config.py ./SkyzuRobot/config.py* /root/SkyzuRobot/SkyzuRobot/
+#Copy config file to /root/PrimeMega/PrimeMega
+COPY ./PrimeMega/sample_config.py ./PrimeMega/config.py* /root/PrimeMega/PrimeMega/
 
 ENV PATH="/home/bot/bin:$PATH"
 
@@ -77,4 +77,4 @@ ENV PATH="/home/bot/bin:$PATH"
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","SkyzuRobot"]
+CMD ["python3","-m","PrimeMega"]
