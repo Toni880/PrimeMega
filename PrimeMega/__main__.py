@@ -119,6 +119,8 @@ DONATE_STRING = """Heya, glad to hear you want to donate!
  Supporting isnt always financial! [Prime update](t.me/PrimeSupportChannel) \
  Those who cannot provide monetary support are welcome to help us develop the bot at ."""
 
+GROUPSTART_IMG= "https://telegra.ph/file/2ae0a0f626c5665112b7f.jpg"
+
 IMPORTED = {}
 MIGRATEABLE = []
 HELPABLE = {}
@@ -226,11 +228,20 @@ def start(update: Update, context: CallbackContext):
                 timeout=60,
             )
     else:
-        update.effective_message.reply_text(
-            "I'm awake already!\n<b>Haven't slept since:</b> <code>{}</code>".format(
-                uptime
+        first_name = update.effective_user.first_name
+        update.effective_message.reply_video(
+            GROUPSTART_IMG, caption= "*hoy {},*\n*OptimusPrime Here For You*\n*I'm Working* : {} ".format(
+             first_name,uptime
             ),
-            parse_mode=ParseMode.HTML,
+            parse_mode=ParseMode.MARKDOWN,
+        reply_markup=InlineKeyboardMarkup(
+                [
+                  [
+                  InlineKeyboardButton(text=" Support ", url=f"https://telegram.dog/{SUPPORT_CHAT}"),
+                  InlineKeyboardButton(text=" Updates ", url=f"t.me/PrimeSupportChannel"),
+                  ]
+                ]
+            ),
         )
         
 def error_handler(update, context):
