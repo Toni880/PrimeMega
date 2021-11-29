@@ -82,7 +82,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
  ───「[PrimeMegaRobot](https://telegra.ph/file/a6f25843424320a05e8dd.jpg)」───
-*Hola! {},*'
+*Hi There,*'
 ────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
 ────────────────────
