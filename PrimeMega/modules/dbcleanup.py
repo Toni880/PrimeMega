@@ -7,7 +7,7 @@ from PrimeMega import (
   OWNER_ID,
   dispatcher,
 )
-from PrimeMea.modules.helper_funcs.chat_status import dev_plus
+from PrimeMega.modules.helper_funcs.chat_status import dev_plus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import (
