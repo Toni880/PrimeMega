@@ -5,8 +5,8 @@ import os
 import heroku3
 import requests
 
-from PrimeMega import telethn as (
-  borg,
+from PrimeMega import (
+  telethn as borg,
   HEROKU_APP_NAME,
   HEROKU_API_KEY,
   OWNER_ID,
