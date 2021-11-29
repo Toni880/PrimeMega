@@ -1,1 +1,1 @@
-worker: python3 -m SkyzuRobot
+worker: python3 -m PrimeMega
