@@ -7,7 +7,7 @@ beautifulsoup4
 requests==2.26.0
 telegram==0.0.1
 python-telegram-bot==13.8.1
-SQLAlchemy==1.4.27
+SQLAlchemy
 psycopg2-binary
 feedparser
 faker
