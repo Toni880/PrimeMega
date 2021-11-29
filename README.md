@@ -25,3 +25,12 @@
 This Bot is Created by Prime Mega, If your kanging this without fork at least give a credit to get a smile of my hard work. 
 - PrimeMega
 ```
+
+### Contributors
+- [『TØNIC』 乂 ₭ILLΣR](https://github.com/Tonic990) : Prime Devs
+- [Xbarox](https://github.com/Xbaroxx)
+
+### Credit
+- Cutiepii
+- Skyzu Robot
+- Natsunagi Nagisa
