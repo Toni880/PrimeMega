@@ -81,7 +81,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
- ───「[PrimeMegaRobot](https://telegra.ph/file/a6f25843424320a05e8dd.jpg)」───
+ ───「[PrimeMegaRobot](https://telegra.ph/file/bfc4bb0c14ccde2903dff.jpg)」───
 *Hi There,*'
 ────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
@@ -92,7 +92,7 @@ Hit the /help or tap on button to se available command on me.
 buttons = [
         [
         InlineKeyboardButton(
-            text="➕️ Add PrimeMega to tour group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
+            text="➕️ Add Primemega to tour group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
         ),
     ],
     [
