@@ -462,7 +462,7 @@ def Tonic_about_callback(update, context):
     elif query.data == "Tonic_credit":
         query.message.edit_text(
             text=f"<b>๏ Credis for Prime</b>\n"
-            f"\nHere Developers Making The SkyzuRobot",
+            f"\nHere Developers Making The PrimeMegaRobot",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -497,7 +497,7 @@ def Source_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="ɢᴏ ʙᴀᴄᴋ​", callback_data="Skyzu_")
+                    InlineKeyboardButton(text="ɢᴏ ʙᴀᴄᴋ​", callback_data="Tonic_")
                  ]
                 ]
             ),
@@ -815,7 +815,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        Skyzu_about_callback, pattern=r"Skyzu_", run_async=True
+        Tonic_about_callback, pattern=r"Tonic_", run_async=True
     )
 
     source_callback_handler = CallbackQueryHandler(
