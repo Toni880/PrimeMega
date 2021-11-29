@@ -879,6 +879,8 @@ def main():
     
     about_callback_handler = CallbackQueryHandler(PrimeMega_about_callback, pattern=r"aboutmanu_")
     
+    source_callback_handler = CallbackQueryHandler(Source_about_callback, pattern=r"source_")
+    
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
     is_chat_allowed_handler = MessageHandler(Filters.group, is_chat_allowed)
 
