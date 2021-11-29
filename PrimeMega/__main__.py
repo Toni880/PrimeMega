@@ -554,7 +554,6 @@ def help_button(update, context):
 
 
 @run_async
-@typing_action
 def get_help(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
