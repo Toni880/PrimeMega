@@ -64,7 +64,7 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/SkyzuRobot 
+# Copy Python Requirements to /root/PrimeMega 
 RUN git clone -b shiken https://github.com/Tonic990/PrimeMega /root/PrimeMega
 WORKDIR /root/PrimeMega
 
