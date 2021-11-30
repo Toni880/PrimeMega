@@ -81,7 +81,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
- ───「[PrimeMega](https://telegra.ph/file/c6a86ff88ed986735472f.jpg)」───
+ ───「[PrimeMega](https://t.me/PrimeMegaBot)」───
 *Holla {} !*
 ────────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
@@ -96,7 +96,7 @@ buttons = [
         ),
     ],
     [
-        InlineKeyboardButton(text="About", callback_data="aboutmanu_"
+        InlineKeyboardButton(text="About", callback_data="tonic_"
         ),
         InlineKeyboardButton(
             text="TryInline", switch_inline_query_current_chat=""
@@ -112,7 +112,7 @@ buttons = [
 HELP_STRINGS = """
 Click on the button bellow to get description about specifics command."""
 
-GROUPSTART_IMG= "https://telegra.ph/file/b9fa4e1360d0a872a3cd5.jpg"
+PRIME_IMG= "https://telegra.ph/file/b9fa4e1360d0a872a3cd5.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
  You can support the project by contacting @Bukan_guudlooking \
@@ -230,20 +230,10 @@ def start(update: Update, context: CallbackContext):
                 disable_web_page_preview=True,
             )
     else:
-        first_name = update.effective_user.first_name
-        update.effective_message.reply_video(
-            GROUPSTART_IMG, caption= "*Hoy {},*\n*OptimusPrime Here For You*\n*I'm Working* : {} ".format(
-             first_name,uptime
-            ),
-            parse_mode=ParseMode.MARKDOWN,
-        reply_markup=InlineKeyboardMarkup(
-                [
-                  [
-                  InlineKeyboardButton(text=" Updates ", url=f"t.me/PrimeSupportChannel"),
-                  ]
-                ]
-            ),
-        )
+        update.effective_message.reply_text(
+            f"<b>Hi I'm Primemega robot!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
+            parse_mode=ParseMode.HTML
+       )
 
 
 def error_handler(update, context):
@@ -370,7 +360,7 @@ def help_button(update, context):
 
 def PrimeMega_about_callback(update, context):
     query = update.callback_query
-    if query.data == "aboutmanu_":
+    if query.data == "tonic_":
         query.message.edit_text(
             text="๏ I'm *PrimeMega*, a powerful group management bot built to help you manage your group easily."
             "\n• I can restrict users."
@@ -386,23 +376,23 @@ def PrimeMega_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="How To Use Me", callback_data="aboutmanu_howto"),
-                    InlineKeyboardButton(text="T & C", callback_data="aboutmanu_tac"),
+                    InlineKeyboardButton(text="How To Use Me", callback_data="tonic_howto"),
+                    InlineKeyboardButton(text="T & C", callback_data="tonic_tac"),
                  ],
                  [
-                    InlineKeyboardButton(text="Support", callback_data="aboutmanu_support"),
-                    InlineKeyboardButton(text="OwnerPrime", callback_data="aboutmanu_owner"),
+                    InlineKeyboardButton(text="Support", callback_data="tonic_support"),
+                    InlineKeyboardButton(text="OwnerPrime", callback_data="tonic_owner"),
                  ],
                  [
                     InlineKeyboardButton(text="Musicplayer", callback_data="source_"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Home", callback_data="aboutmanu_back"),
+                    InlineKeyboardButton(text="Go Home", callback_data="tonic_back"),
                  ]
                 ]
             ),
         )
-    elif query.data == "aboutmanu_back":
+    elif query.data == "tonic_back":
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_text(
@@ -417,7 +407,7 @@ def PrimeMega_about_callback(update, context):
                 disable_web_page_preview=True,
         )
 
-    elif query.data == "aboutmanu_howto":
+    elif query.data == "tonic_howto":
         query.message.edit_text(
             text=f"* ｢ BASIC HELP 」*"
                  f"\nIf You Can Also Add {dispatcher.bot.first_name} To Your Chats By Clicking [Here](http://t.me/{dispatcher.bot.username}?startgroup=true) And Selecting Chat. \n"
@@ -429,11 +419,11 @@ def PrimeMega_about_callback(update, context):
                 InlineKeyboardButton(text="Admins Settings", callback_data="aboutmanu_permis"),
                 InlineKeyboardButton(text="Anti Spam", callback_data="aboutmanu_spamprot")],
                 [
-                InlineKeyboardButton(text="► Back ◄", callback_data="aboutmanu_")]
+                InlineKeyboardButton(text="► Back ◄", callback_data="tonic_")]
                                                ]),
         )
 
-    elif query.data == "aboutmanu_credit":
+    elif query.data == "tonic_credit":
         query.message.edit_text(
             text=f"*{dispatcher.bot.first_name} Is A Powerful Bot For Managing Groups With Additional Features.*"
                  f"\n\nFork Of [Emiko](https://github.com/Kennedy-ex/emikoRobot) + [PrimeMega](https://github.com/Tonic990/PrimeMega)."
@@ -441,10 +431,10 @@ def PrimeMega_about_callback(update, context):
                  f"\n\nIf Any Question About {dispatcher.bot.first_name}, \nLet Us Know At @{SUPPORT_CHAT}.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="► Back ◄", callback_data="aboutmanu_tac")]]),
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="► Back ◄", callback_data="tonic_tac")]]),
         )
 
-    elif query.data == "aboutmanu_support":
+    elif query.data == "tonic_support":
         query.message.edit_text(
             text="*๏ Prime support chats*"
             "\nJoin My Support Group/Channel for see or report a problem on PrimeMega.",
@@ -456,7 +446,7 @@ def PrimeMega_about_callback(update, context):
                     InlineKeyboardButton(text="Updates", url="https://t.me/PrimeSupportChannel"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Home", callback_data="aboutmanu_"),
+                    InlineKeyboardButton(text="Go Home", callback_data="tonic_"),
                  
                  ]
                 ]
@@ -464,7 +454,7 @@ def PrimeMega_about_callback(update, context):
         )
 
 
-    elif query.data == "aboutmanu_owner":
+    elif query.data == "tonic_owner":
         query.message.edit_text(
             text=f"<b>๏ Credis for PrimeMega</b>\n"
             f"\nHere Developers Making The PrimeMega",
@@ -476,7 +466,7 @@ def PrimeMega_about_callback(update, context):
                     InlineKeyboardButton(text="x~b", url="t.me/Xbarok"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Back", callback_data="aboutmanu_"),
+                    InlineKeyboardButton(text="Go Back", callback_data="tonic_"),
                  
                  ]
                 ]
@@ -504,7 +494,7 @@ def Source_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Go Home", callback_data="aboutmanu_")
+                    InlineKeyboardButton(text="Go Home", callback_data="tonic_")
                  ]
                 ]
             ),
