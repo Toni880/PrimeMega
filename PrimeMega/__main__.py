@@ -813,7 +813,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        Prime_about_callback, pattern=r"prime_", run_async=True
+        PrimeMega_about_callback, pattern=r"prime_", run_async=True
     )
 
     source_callback_handler = CallbackQueryHandler(
