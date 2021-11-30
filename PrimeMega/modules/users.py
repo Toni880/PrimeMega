@@ -5,15 +5,17 @@ from telegram import TelegramError, Update
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import (
     CallbackContext,
-    CommandHandler,
     Filters,
     MessageHandler,
+    CommandHandler,
 )
 
-import PrimeMega.modules.sql.users_sql as sql
-from PrimeMega import DEV_USERS, LOGGER, OWNER_ID, dispatcher
-from PrimeMega.modules.helper_funcs.chat_status import dev_plus, sudo_plus
-from PrimeMega.modules.sql.users_sql import get_all_users
+import Natsunagi.modules.sql.users_sql as sql
+from Natsunagi.modules.disable import DisableAbleCommandHandler
+from Natsunagi import DEV_USERS, LOGGER, OWNER_ID, dispatcher
+from Natsunagi.modules.helper_funcs.chat_status import dev_plus, sudo_plus
+from Natsunagi.modules.sql.users_sql import get_all_users
+
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
@@ -42,9 +44,7 @@ def get_user_id(username):
                 return userdat.id
 
         except BadRequest as excp:
-            if excp.message == "Chat not found":
-                pass
-            else:
+            if excp.message != "Chat not found":
                 LOGGER.exception("Error extracting user ID")
 
     return None
@@ -123,14 +123,14 @@ def chats(update: Update, context: CallbackContext):
         try:
             curr_chat = context.bot.getChat(chat.chat_id)
             bot_member = curr_chat.get_member(context.bot.id)
-            chat_members = curr_chat.get_members_count(context.bot.id)
+            chat_members = curr_chat.get_member_count(context.bot.id)
             chatfile += "{}. {} | {} | {}\n".format(
                 P,
                 chat.chat_name,
                 chat.chat_id,
                 chat_members,
             )
-            P = P + 1
+            P += 1
         except:
             pass
 
@@ -154,11 +154,11 @@ def chat_checker(update: Update, context: CallbackContext):
 
 def __user_info__(user_id):
     if user_id in [777000, 1087968824]:
-        return """╘═━「 Groups count: <code>???</code> 」"""
+        return """╘══「 Groups count: <code>???</code> 」"""
     if user_id == dispatcher.bot.id:
-        return """╘═━「 Groups count: <code>???</code> 」"""
+        return """╘══「 Groups count: <code>???</code> 」"""
     num_chats = sql.get_user_num_chats(user_id)
-    return f"""╘═━「 Groups count: <code>{num_chats}</code> 」"""
+    return f"""╘══「 Groups count: <code>{num_chats}</code> 」"""
 
 
 def __stats__():
@@ -168,8 +168,6 @@ def __stats__():
 def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
-
-__help__ = ""  # no help string
 
 BROADCAST_HANDLER = CommandHandler(
     ["broadcastall", "broadcastusers", "broadcastgroups"],
@@ -190,4 +188,5 @@ dispatcher.add_handler(CHATLIST_HANDLER)
 dispatcher.add_handler(CHAT_CHECKER_HANDLER, CHAT_GROUP)
 
 __mod_name__ = "Users"
+
 __handlers__ = [(USER_HANDLER, USERS_GROUP), BROADCAST_HANDLER, CHATLIST_HANDLER]
