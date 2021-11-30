@@ -82,7 +82,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
  ───「[PrimeMega](https://t.me/PrimeMegaBot)」───
-*Holla {} !*
+*Hello {} !*
 ────────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
 ────────────────────
@@ -96,7 +96,7 @@ buttons = [
         ),
     ],
     [
-        InlineKeyboardButton(text="About", callback_data="tonic_"
+        InlineKeyboardButton(text="About", callback_data="prime_"
         ),
         InlineKeyboardButton(
             text="TryInline", switch_inline_query_current_chat=""
@@ -112,7 +112,7 @@ buttons = [
 HELP_STRINGS = """
 Click on the button bellow to get description about specifics command."""
 
-PRIME_IMG= "https://telegra.ph/file/b9fa4e1360d0a872a3cd5.jpg"
+PRIME_IMG = "https://telegra.ph/file/b9fa4e1360d0a872a3cd5.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
  You can support the project by contacting @Bukan_guudlooking \
@@ -231,7 +231,7 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_text(
-            f"<b>Hi I'm Primemega robot!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
+            f"<b>Hi I'm PrimeMega robot!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
             parse_mode=ParseMode.HTML
        )
 
@@ -358,9 +358,9 @@ def help_button(update, context):
         pass
 
 
-def PrimeMega_about_callback(update, context):
+def prime_about_callback(update, context):
     query = update.callback_query
-    if query.data == "tonic_":
+    if query.data == "prime_":
         query.message.edit_text(
             text="๏ I'm *PrimeMega*, a powerful group management bot built to help you manage your group easily."
             "\n• I can restrict users."
@@ -370,29 +370,29 @@ def PrimeMega_about_callback(update, context):
             "\n• I have a note keeping system, blacklists, and even predetermined replies on certain keywords."
             "\n• I check for admins' permissions before executing any command and more stuffs"
             "\n\n_PrimeMega's licensed under the GNU General Public License v3.0_"
-            "\n\n Click on button bellow to get basic help for PrimeMegaRobot.",
+            "\n\n Click on button bellow to get basic help for PrimeMega.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="How To Use Me", callback_data="tonic_howto"),
-                    InlineKeyboardButton(text="T & C", callback_data="tonic_tac"),
+                    InlineKeyboardButton(text="Admins", callback_data="prime_admin"),
+                    InlineKeyboardButton(text="Notes", callback_data="prime_notes"),
                  ],
                  [
-                    InlineKeyboardButton(text="Support", callback_data="tonic_support"),
-                    InlineKeyboardButton(text="OwnerPrime", callback_data="tonic_owner"),
+                    InlineKeyboardButton(text="Support", callback_data="prime_support"),
+                    InlineKeyboardButton(text="Credits", callback_data="prime_credit"),
                  ],
                  [
                     InlineKeyboardButton(text="Musicplayer", callback_data="source_"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Home", callback_data="tonic_back"),
+                    InlineKeyboardButton(text="Go Back", callback_data="prime_back"),
                  ]
                 ]
             ),
         )
-    elif query.data == "tonic_back":
+    elif query.data == "prime_back":
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_text(
@@ -407,36 +407,37 @@ def PrimeMega_about_callback(update, context):
                 disable_web_page_preview=True,
         )
 
-    elif query.data == "tonic_howto":
+    elif query.data == "prime_admin":
         query.message.edit_text(
-            text=f"* ｢ BASIC HELP 」*"
-                 f"\nIf You Can Also Add {dispatcher.bot.first_name} To Your Chats By Clicking [Here](http://t.me/{dispatcher.bot.username}?startgroup=true) And Selecting Chat. \n"
-                 f"\n\nRobot {dispatcher.bot.first_name} by Just Clicking [Here](https://t.me/Xbarok).\n"
-                 f"",
+            text=f"*๏ Let's make your group bit effective now*"
+            "\nCongragulations, PrimeMegaRobot now ready to manage your group."
+            "\n\n*Admin Tools*"
+            "\nBasic Admin tools help you to protect and powerup your group."
+            "\nYou can ban members, Kick members, Promote someone as admin through commands of bot."
+            "\n\n*Greetings*"
+            "\nLets set a welcome message to welcome new users coming to your group."
+            "\nsend `/setwelcome [message]` to set a welcome message!",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton(text="Admins Settings", callback_data="aboutmanu_permis"),
-                InlineKeyboardButton(text="Anti Spam", callback_data="aboutmanu_spamprot")],
-                [
-                InlineKeyboardButton(text="► Back ◄", callback_data="tonic_")]
-                                               ]),
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Go Back", callback_data="prime_")]]
+            ),
         )
 
-    elif query.data == "tonic_credit":
+    elif query.data == "prime_notes":
         query.message.edit_text(
-            text=f"*{dispatcher.bot.first_name} Is A Powerful Bot For Managing Groups With Additional Features.*"
-                 f"\n\nFork Of [Emiko](https://github.com/Kennedy-ex/emikoRobot) + [PrimeMega](https://github.com/Tonic990/PrimeMega)."
-                 f"\n\n{dispatcher.bot.first_name}'s Licensed Under The GNU _(General Public License v3.0)_"
-                 f"\n\nIf Any Question About {dispatcher.bot.first_name}, \nLet Us Know At @{SUPPORT_CHAT}.",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="► Back ◄", callback_data="tonic_tac")]]),
+            text=f"<b>๏ Setting up notes</b>"
+            f"\nYou can save message/media/audio or anything as notes"
+            f"\nto get a note simply use # at the beginning of a word"
+            f"\n\nYou can also set buttons for notes and filters (refer help menu)",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Go Back", callback_data="prime_")]]
+            ),
         )
-
-    elif query.data == "tonic_support":
+    elif query.data == "prime_support":
         query.message.edit_text(
-            text="*๏ Prime support chats*"
+            text="*๏ PrimeMega support chats*"
             "\nJoin My Support Group/Channel for see or report a problem on PrimeMega.",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
@@ -446,7 +447,7 @@ def PrimeMega_about_callback(update, context):
                     InlineKeyboardButton(text="Updates", url="https://t.me/PrimeSupportChannel"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Home", callback_data="tonic_"),
+                    InlineKeyboardButton(text="Go Back", callback_data="prime_"),
                  
                  ]
                 ]
@@ -454,10 +455,10 @@ def PrimeMega_about_callback(update, context):
         )
 
 
-    elif query.data == "tonic_owner":
+    elif query.data == "prime_credit":
         query.message.edit_text(
-            text=f"<b>๏ Credis for PrimeMega</b>\n"
-            f"\nHere Developers Making The PrimeMega",
+            text=f"<b>๏ Credis for primeMega</b>\n"
+            f"\nHere Developers Making The PrimeMegaRobot",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -466,7 +467,7 @@ def PrimeMega_about_callback(update, context):
                     InlineKeyboardButton(text="x~b", url="t.me/Xbarok"),
                  ],
                  [
-                    InlineKeyboardButton(text="Go Back", callback_data="tonic_"),
+                    InlineKeyboardButton(text="Go Back", callback_data="prime_"),
                  
                  ]
                 ]
@@ -494,7 +495,7 @@ def Source_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Go Home", callback_data="tonic_")
+                    InlineKeyboardButton(text="Go Back", callback_data="prime_")
                  ]
                 ]
             ),
@@ -564,7 +565,7 @@ def get_help(update: Update, context: CallbackContext):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Go Home", callback_data="help_back")]]
+                [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
             ),
         )
 
@@ -636,7 +637,7 @@ def settings_button(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Go Home",
+                                text="Go Back",
                                 callback_data="stngs_back({})".format(chat_id),
                             )
                         ]
@@ -736,7 +737,7 @@ def donate(update: Update, context: CallbackContext):
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
 
-        if OWNER_ID != 1416529201:
+        if OWNER_ID != 1606221784:
             update.effective_message.reply_text(
                 "I'm free for everyone ❤️ If you wanna make me smile, just join"
                 "[My Channel]({})".format(DONATION_LINK),
@@ -812,7 +813,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        PrimeMega_about_callback, pattern=r"PrimeMega_", run_async=True
+        Prime_about_callback, pattern=r"prime_", run_async=True
     )
 
     source_callback_handler = CallbackQueryHandler(
