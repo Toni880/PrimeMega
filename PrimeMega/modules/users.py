@@ -10,11 +10,11 @@ from telegram.ext import (
     CommandHandler,
 )
 
-import Natsunagi.modules.sql.users_sql as sql
-from Natsunagi.modules.disable import DisableAbleCommandHandler
-from Natsunagi import DEV_USERS, LOGGER, OWNER_ID, dispatcher
-from Natsunagi.modules.helper_funcs.chat_status import dev_plus, sudo_plus
-from Natsunagi.modules.sql.users_sql import get_all_users
+import PrimeMega.modules.sql.users_sql as sql
+from PrimeMega.modules.disable import DisableAbleCommandHandler
+from PrimeMega import DEV_USERS, LOGGER, OWNER_ID, dispatcher
+from PrimeMega.modules.helper_funcs.chat_status import dev_plus, sudo_plus
+from PrimeMega.modules.sql.users_sql import get_all_users
 
 
 USERS_GROUP = 4
