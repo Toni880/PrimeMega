@@ -33,4 +33,5 @@ This Bot is Created by Prime Mega, If your kanging this without fork at least gi
 ### Credit
 - Cutiepii
 - Skyzu Robot
+- Emiko Robot
 - Natsunagi Nagisa
