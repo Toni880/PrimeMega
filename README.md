@@ -31,7 +31,7 @@ This Bot is Created by Prime Mega, If your kanging this without fork at least gi
 - [Xbarox](https://github.com/Xbaroxx)
 
 ### Credit
-- Cutiepii
-- Skyzu Robot
-- Emiko Robot
-- Natsunagi Nagisa
+- [Cutiepii](t.me/Cuteipii_Robot)
+- [Skyzu Robot](t.me/SkyzuRobot)
+- [Emiko Robot](t.me/EmiexRobot)
+- [Natsunagi Nagisa](t.me/YuiiDev_bot)
