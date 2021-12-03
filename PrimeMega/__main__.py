@@ -81,7 +81,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
- ───「[PrimeMega](https://t.me/PrimeMegaBot)」───
+ ───「[Prime Mega](https://t.me/PrimeMegaBot)」───
 *Hello {} !*
 ────────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
@@ -92,7 +92,7 @@ Hit the /help or tap on button to se available command on me.
 buttons = [
         [
         InlineKeyboardButton(
-            text="➕️ Add PrimeMega to your group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
+            text="➕️ Add Prime Mega to your group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
         ),
     ],
     [
@@ -231,7 +231,7 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_text(
-            f"<b>Hi I'm PrimeMega robot!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
+            f"<b>Hi I'm Prime Mega!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
             parse_mode=ParseMode.HTML
        )
 
@@ -362,7 +362,7 @@ def prime_about_callback(update, context):
     query = update.callback_query
     if query.data == "prime_":
         query.message.edit_text(
-            text="๏ I'm *PrimeMega*, a powerful group management bot built to help you manage your group easily."
+            text="๏ I'm *Prime Mega*, a powerful group management bot built to help you manage your group easily."
             "\n• I can restrict users."
             "\n• I can greet users with customizable welcome messages and even set a group's rules."
             "\n• I have an advanced anti-flood system."
@@ -410,7 +410,7 @@ def prime_about_callback(update, context):
     elif query.data == "prime_admin":
         query.message.edit_text(
             text=f"*๏ Let's make your group bit effective now*"
-            "\nCongragulations, PrimeMegaRobot now ready to manage your group."
+            "\nCongragulations, Prime Mega now ready to manage your group."
             "\n\n*Admin Tools*"
             "\nBasic Admin tools help you to protect and powerup your group."
             "\nYou can ban members, Kick members, Promote someone as admin through commands of bot."
@@ -484,12 +484,17 @@ def Source_about_callback(update, context):
             "\n • `/userbotjoin` - For inviting the assistant to your groups."
             "\n • `/userbotleave` - Use this if you want the assistant leaving your groups."
             "\n • `/pause` - To pause the playback."
+            "\n • `/vpause` - To pause video stream."
             "\n • `/resume` - To resuming the playback You've paused."
+            "\n • `/vresume` - To resuming video stream."
             "\n • `/skip` - To skipping the player."
+            "\n • `/vskip` - To skipping the video stream."
             "\n • `/end` - For end the playback."
+            "\n • `/vend` - For end the video stream."
             "\n • `/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
             "\n\n๏ Command for all members."
-            "\n • `/play` or `/ytp` <query> - Playing music via YouTube.",
+            "\n • `/play` or `/ytp` <query> - Playing music via YouTube."
+            "\n • `/vplay` <query or reply audio> - Playing video from YouTube.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
