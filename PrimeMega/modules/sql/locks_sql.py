@@ -1,3 +1,4 @@
+# New chat added -> setup permissions
 import threading
 
 from sqlalchemy import Column, String, Boolean
@@ -179,39 +180,39 @@ def is_locked(chat_id, lock_type):
     if not curr_perm:
         return False
 
-    if lock_type == "sticker":
+    elif lock_type == "sticker":
         return curr_perm.sticker
-    if lock_type == "photo":
+    elif lock_type == "photo":
         return curr_perm.photo
-    if lock_type == "audio":
+    elif lock_type == "audio":
         return curr_perm.audio
-    if lock_type == "voice":
+    elif lock_type == "voice":
         return curr_perm.voice
-    if lock_type == "contact":
+    elif lock_type == "contact":
         return curr_perm.contact
-    if lock_type == "video":
+    elif lock_type == "video":
         return curr_perm.video
-    if lock_type == "document":
+    elif lock_type == "document":
         return curr_perm.document
-    if lock_type == "gif":
+    elif lock_type == "gif":
         return curr_perm.gif
-    if lock_type == "url":
+    elif lock_type == "url":
         return curr_perm.url
-    if lock_type == "bots":
+    elif lock_type == "bots":
         return curr_perm.bots
-    if lock_type == "forward":
+    elif lock_type == "forward":
         return curr_perm.forward
-    if lock_type == "game":
+    elif lock_type == "game":
         return curr_perm.game
-    if lock_type == "location":
+    elif lock_type == "location":
         return curr_perm.location
-    if lock_type == "rtl":
+    elif lock_type == "rtl":
         return curr_perm.rtl
-    if lock_type == "button":
+    elif lock_type == "button":
         return curr_perm.button
-    if lock_type == "egame":
+    elif lock_type == "egame":
         return curr_perm.egame
-    if lock_type == "inline":
+    elif lock_type == "inline":
         return curr_perm.inline
 
 
@@ -224,13 +225,13 @@ def is_restr_locked(chat_id, lock_type):
 
     if lock_type == "messages":
         return curr_restr.messages
-    if lock_type == "media":
+    elif lock_type == "media":
         return curr_restr.media
-    if lock_type == "other":
+    elif lock_type == "other":
         return curr_restr.other
-    if lock_type == "previews":
+    elif lock_type == "previews":
         return curr_restr.preview
-    if lock_type == "all":
+    elif lock_type == "all":
         return (
             curr_restr.messages
             and curr_restr.media
