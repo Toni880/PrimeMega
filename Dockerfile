@@ -1,5 +1,5 @@
 # We're using Debian Slim Buster image
-FROM python:3.9.7-slim-buster
+FROM python:3.10.1-slim-buster
 
 ENV PIP_NO_CACHE_DIR 1
 
@@ -77,4 +77,4 @@ ENV PATH="/home/bot/bin:$PATH"
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","PrimeMega"]
+CMD ["python3", "-m", "PrimeMega"]
