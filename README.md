@@ -28,6 +28,7 @@ This Bot is Created by Prime Mega, If your kanging this without fork at least gi
 
 ### Contributors
 - [『TØNIC』 乂 ₭ILLΣR](https://github.com/Tonic990) : Prime Devs
+- [Arya](https://github.com/aryazakaria01) : Natsunagi Devs
 - [Xbarox](https://github.com/Xbaroxx)
 
 ### Credit
