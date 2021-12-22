@@ -4,9 +4,8 @@ from traceback import format_exc
 from pyrogram import filters
 from pyrogram.types import Message
 
-from PrimeMega import arq
+from PrimeMega import arq, pgram
 from PrimeMega.utils.errors import capture_err
-from PrimeMega import pbot as app
 
 
 async def quotify(messages: list):
@@ -20,11 +19,10 @@ async def quotify(messages: list):
 
 
 def getArg(message: Message) -> str:
-    arg = message.text.strip().split(None, 1)[1].strip()
-    return arg
+    return message.text.strip().split(None, 1)[1].strip()
 
 
-def isArgInt(message: Message) -> bool:
+def isArgInt(message: Message) -> list:
     count = getArg(message)
     try:
         count = int(count)
@@ -33,7 +31,7 @@ def isArgInt(message: Message) -> bool:
         return [False, 0]
 
 
-@app.on_message(filters.command("q"))
+@pgram.on_message(filters.command("q"))
 @capture_err
 async def quotly_func(client, message: Message):
     if not message.reply_to_message:
@@ -52,13 +50,12 @@ async def quotly_func(client, message: Message):
             count = arg[1]
             messages = await client.get_messages(
                 message.chat.id,
-                [
-                    i
-                    for i in range(
+                list(
+                    range(
                         message.reply_to_message.message_id,
-                        message.reply_to_message.message_id + count,
+                        message.reply_to_message.message_id + (count + 5),
                     )
-                ],
+                ),
                 replies=0,
             )
         else:
@@ -73,8 +70,7 @@ async def quotly_func(client, message: Message):
             )
             messages = [reply_message]
     else:
-        await m.edit("Incorrect argument, check quotly module in help section.")
-        return
+        return await m.edit("Incorrect argument, check quotly module in help section.")
     try:
         sticker = await quotify(messages)
         if not sticker[0]:
