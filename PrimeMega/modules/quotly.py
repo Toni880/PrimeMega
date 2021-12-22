@@ -4,7 +4,7 @@ from traceback import format_exc
 from pyrogram import filters
 from pyrogram.types import Message
 
-from PrimeMega import arq, pgram
+from PrimeMega import arq, pbot
 from PrimeMega.utils.errors import capture_err
 
 
@@ -31,7 +31,7 @@ def isArgInt(message: Message) -> list:
         return [False, 0]
 
 
-@pgram.on_message(filters.command("q"))
+@pbot.on_message(filters.command("q"))
 @capture_err
 async def quotly_func(client, message: Message):
     if not message.reply_to_message:
