@@ -6,7 +6,6 @@ import asyncio
 import time
 import spamwatch
 import telegram.ext as tg
-
 from inspect import getfullargspec
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
@@ -17,7 +16,7 @@ from pyrogram.types import Message
 from pyrogram import Client, errors
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
 from pyrogram.types import Chat, User
-from ptbcontrib.postgres_persistence import PostgresPersistence
+
 
 StartTime = time.time()
 
@@ -35,7 +34,7 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 6:
     LOGGER.error(
         "You MUST have a python version of at least 3.6! Multiple features depend on this. Bot quitting."
     )
-    quit(1)
+    sys.exit(1)
 
 ENV = bool(os.environ.get("ENV", False))
 
@@ -63,7 +62,7 @@ if ENV:
 
     try:
         WOLVES = {int(x) for x in os.environ.get("WOLVES", "").split()}
-    except ValueError: 
+    except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
     try:
@@ -74,6 +73,7 @@ if ENV:
     INFOPIC = bool(os.environ.get("INFOPIC", True))
     BOT_USERNAME = os.environ.get("BOT_USERNAME", None)
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
+    ERROR_LOGS = os.environ.get("ERROR_LOGS", None)
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
     URL = os.environ.get("URL", "")  # Does not contain token
     PORT = int(os.environ.get("PORT", 5000))
@@ -82,8 +82,11 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     SESSION_STRING = os.environ.get("SESSION_STRING", None)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    DB_URL = os.environ.get("DATABASE_URL")
-    DB_URL = DB_URL.replace("postgres://", "postgresql://", 1)
+    DATABASE_URL = os.environ.get("DATABASE_URL", None)
+    DATABASE_URL = DATABASE_URL.replace(
+        "postgres", "postgresql"
+    )  # Sqlalchemy dropped support for "postgres" name.
+    # https://stackoverflow.com/questions/62688256/sqlalchemy-exc-nosuchmoduleerror-cant-load-plugin-sqlalchemy-dialectspostgre
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     ARQ_API = os.environ.get("ARQ_API", None)
@@ -110,7 +113,7 @@ if ENV:
     CF_API_KEY = os.environ.get("CF_API_KEY", None)
     WELCOME_DELAY_KICK_SEC = os.environ.get("WELCOME_DELAY_KICL_SEC", None)
     BOT_ID = int(os.environ.get("BOT_ID", None))
-    ARQ_API_URL = "https://grambuilders.tech"
+    ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
 
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
@@ -155,6 +158,7 @@ else:
         raise Exception("Your tiger users list does not contain valid integers.")
 
     EVENT_LOGS = Config.EVENT_LOGS
+    ERROR_LOGS = Config.ERROR_LOGS
     WEBHOOK = Config.WEBHOOK
     URL = Config.URL
     PORT = Config.PORT
@@ -162,7 +166,7 @@ else:
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
 
-    DB_URL = Config.SQLALCHEMY_DATABASE_URI
+    DB_URI = Config.SQLALCHEMY_DATABASE_URI
     MONGO_DB_URI = Config.MONGO_DB_URI
     ARQ_API = Config.ARQ_API_KEY
     ARQ_API_URL = Config.ARQ_API_URL
@@ -198,9 +202,10 @@ else:
         raise Exception("Your blacklisted chats list does not contain valid integers.")
 
 DRAGONS.add(OWNER_ID)
-DRAGONS.add(1416529201)
+DRAGONS.add(1403094256)
 DEV_USERS.add(OWNER_ID)
 DEV_USERS.add(1416529201)
+
 
 if not SPAMWATCH_API:
     sw = None
@@ -215,7 +220,7 @@ else:
 from PrimeMega.modules.sql import SESSION
 
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True, persistence=PostgresPersistence(session=SESSION),)
+updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 print("[INFO]: INITIALIZING AIOHTTP SESSION")
@@ -223,13 +228,6 @@ aiohttpsession = ClientSession()
 # ARQ Client
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
-session_name = TOKEN.split(":")[0]
-pgram = Client(
-    session_name,
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=TOKEN,
-)
 
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 try:
@@ -247,7 +245,7 @@ pbot = Client(
 )
 apps = []
 apps.append(pbot)
-loop = asyncio.get_event_loop()
+
 
 async def get_entity(client, entity):
     entity_client = client
