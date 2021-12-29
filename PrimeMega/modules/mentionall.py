@@ -9,6 +9,8 @@ from telethon.errors import UserNotParticipantError
 
 from PrimeMega import telethn as Client
 
+spam_chats = []
+
 @Client.on(events.NewMessage(pattern="^/all ?(.*)"))
 async def mentionall(event):
   chat_id = event.chat_id
@@ -17,7 +19,7 @@ async def mentionall(event):
   
   is_admin = False
   try:
-    partici_ = await client(GetParticipantRequest(
+    partici_ = await Client(GetParticipantRequest(
       event.chat_id,
       event.sender_id
     ))
@@ -50,18 +52,18 @@ async def mentionall(event):
   else:
     return await event.respond("Reply to a message or give me some text to mention others!")
   
-  spam_chats.append(chat_id)
+  Spam = spam_chats.append(chat_id)
   usrnum = 0
   usrtxt = ''
-  async for usr in client.iter_participants(chat_id):
+  async for usr in Client.iter_participants(chat_id):
     if not chat_id in spam_chats:
       break
     usrnum += 1
     usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}) "
-    if usrnum == 5:
+    if usrnum == 10:
       if mode == "text_on_cmd":
         txt = f"{usrtxt}\n\n{msg}"
-        await client.send_message(chat_id, txt)
+        await Client.send_message(chat_id, txt)
       elif mode == "text_on_reply":
         await msg.reply(usrtxt)
       await asyncio.sleep(2)
@@ -82,3 +84,5 @@ async def cancel_spam(event):
     except:
       pass
     return await event.respond('Stopped.')
+
+__mod_name__ = "Mentions"
