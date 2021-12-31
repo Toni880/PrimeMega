@@ -46,10 +46,10 @@ import urllib
 import asyncio
 import os
 from pyrogram import filters
-from PrimeMega import TEMP_DOWNLOAD_DIRECTORY, pbot
+from PrimeMega import TEMP_DOWNLOAD_DIRECTORY, pgram
 
 
-@pbot.on_message(filters.command("boobs"))
+@pgram.on_message(filters.command("boobs"))
 async def boobs(client, message):
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
