@@ -4,12 +4,12 @@ from pyrogram import __version__ as z
 from telethon import __version__ as s
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram import filters
-from PrimeMega import pbot
+from PrimeMega import pgram
 from PrimeMega.utils.errors import capture_err
 from PrimeMega.utils.functions import make_carbon
 
 
-@pbot.on_message(filters.command("carbon"))
+@pgram.on_message(filters.command("carbon"))
 @capture_err
 async def carbon_func(_, message):
     if not message.reply_to_message:
@@ -24,7 +24,7 @@ async def carbon_func(_, message):
     carbon.close()
 
 
-@pbot.on_message(filters.command("repo"))
+@pgram.on_message(filters.command("repo"))
 async def repo(_, message):
     await message.reply_text(
         f"""✨ **Hey I'm Prime Mega** 
