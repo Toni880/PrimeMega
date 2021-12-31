@@ -28,6 +28,7 @@ from PrimeMega import (
     telethn,
     pbot,
     updater,
+    ubot2,
 )
 
 # needed to dynamically load modules
@@ -863,6 +864,11 @@ def main():
 
     updater.idle()
 
+try:
+    ubot.start()
+except BaseException:
+    print("Userbot Error! Have you added a STRING_SESSION in deploying??")
+    sys.exit(1)
 
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
