@@ -6,7 +6,7 @@ gtts
 beautifulsoup4
 requests
 python-telegram-bot==13.9.0
-SQLAlchemy==1.4.28
+SQLAlchemy==1.4.29
 psycopg2-binary
 feedparser
 faker
@@ -85,3 +85,4 @@ fuzzysearch
 img2pdf
 multicolorcaptcha
 git+https://github.com/python-telegram-bot/ptbcontrib.git
+hiredis
