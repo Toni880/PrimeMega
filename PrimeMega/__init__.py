@@ -20,8 +20,7 @@ from redis import StrictRedis
 from telegram import Chat
 from telegraph import Telegraph
 from telethon import TelegramClient
-from telethon.sessions import MemorySession
-
+from telethon.sessions import MemorySession, StringSession
 
 StartTime = time.time()
 
