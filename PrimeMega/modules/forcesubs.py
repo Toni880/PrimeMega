@@ -11,7 +11,7 @@ from pyrogram.errors.exceptions.bad_request_400 import (
 from pyrogram.types import ChatPermissions, InlineKeyboardButton, InlineKeyboardMarkup
 
 from PrimeMega import DRAGONS as SUDO_USERS
-from PrimeMega import pbot
+from PrimeMega import pgram
 from PrimeMega.modules.sql import forceSubscribe_sql as sql
 
 logging.basicConfig(level=logging.INFO)
@@ -21,7 +21,7 @@ static_data_filter = filters.create(
 )
 
 
-@pbot.on_callback_query(static_data_filter)
+@pgram.on_callback_query(static_data_filter)
 def _onUnMuteRequest(client, cb):
     user_id = cb.from_user.id
     chat_id = cb.message.chat.id
