@@ -1,35 +1,57 @@
+
+import asyncio
 import logging
 import os
 import sys
-import json
-import asyncio
 import time
+from inspect import getfullargspec
+
+import aiohttp
 import spamwatch
 import telegram.ext as tg
-from inspect import getfullargspec
 from aiohttp import ClientSession
-from Python_ARQ import ARQ
-from telethon import TelegramClient
-from telethon.sessions import StringSession
-from telethon.sessions import MemorySession
-from pyrogram.types import Message
+from ptbcontrib.postgres_persistence import PostgresPersistence
+from pymongo.errors import ServerSelectionTimeoutError
 from pyrogram import Client, errors
-from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
-from pyrogram.types import Chat, User
+from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInvalid
+from pyrogram.types import Message
+from Python_ARQ import ARQ
+from redis import StrictRedis
+from telegram import Chat
+from telegraph import Telegraph
+from telethon import TelegramClient
+from telethon.sessions import MemorySession
 
 
 StartTime = time.time()
 
+
+def get_user_list(__init__, key):
+    with open("{}/PrimeMega/{}".format(os.getcwd(), __init__), "r") as json_file:
+        return json.load(json_file)[key]
+
+
 # enable logging
+FORMAT = "[PrimeRobot] %(message)s"
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
     level=logging.INFO,
+    format=FORMAT,
+    datefmt="[%X]",
+)
+logging.getLogger("pyrogram").setLevel(logging.INFO)
+logging.getLogger("ptbcontrib.postgres_persistence.postgrespersistence").setLevel(
+    logging.WARNING
 )
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("[PrimeRobot]")
+LOGGER.info(
+    "Prime Mega is starting. | An SakuraEmpire Project Parts. | Licensed under GPLv3."
+)
+LOGGER.info("Not affiliated to Tantei Wa Mou or Villain in any way whatsoever.")
+LOGGER.info("Project maintained by: github.com/Tonic990 (t.me/Bukan_guudlooking)")
 
-# if version < 3.6, stop bot.
+# if version < 3.9, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
     LOGGER.error(
         "You MUST have a python version of at least 3.6! Multiple features depend on this. Bot quitting."
@@ -82,11 +104,8 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     SESSION_STRING = os.environ.get("SESSION_STRING", None)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    DATABASE_URL = os.environ.get("DATABASE_URL", None)
-    DATABASE_URL = DATABASE_URL.replace(
-        "postgres", "postgresql"
-    )  # Sqlalchemy dropped support for "postgres" name.
-    # https://stackoverflow.com/questions/62688256/sqlalchemy-exc-nosuchmoduleerror-cant-load-plugin-sqlalchemy-dialectspostgre
+    DB_URL = os.environ.get("DATABASE_URL", None)
+    DB_URL = DB_URL.replace("postgres://", "postgresql://", 1)
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     ARQ_API = os.environ.get("ARQ_API", None)
@@ -166,7 +185,7 @@ else:
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
 
-    DB_URI = Config.SQLALCHEMY_DATABASE_URI
+    DB_URL = Config.SQLALCHEMY_DATABASE_URI
     MONGO_DB_URI = Config.MONGO_DB_URI
     ARQ_API = Config.ARQ_API_KEY
     ARQ_API_URL = Config.ARQ_API_URL
@@ -219,14 +238,21 @@ else:
 
 from PrimeMega.modules.sql import SESSION
 
+telegraph = Telegraph()
+telegraph.create_account(short_name="Prime")
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
+updater = tg.Updater(
+    token=TOKEN,
+    base_url=BOT_API_URL,
+    workers=min(32, os.cpu_count() + 4),
+    request_kwargs={"read_timeout": 10, "connect_timeout": 10},
+    use_context=True,
+    persistence=PostgresPersistence(session=SESSION),
+)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
-print("[INFO]: INITIALIZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
 # ARQ Client
-print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
@@ -245,7 +271,7 @@ pbot = Client(
 )
 apps = []
 apps.append(pbot)
-
+loop = asyncio.get_event_loop()
 
 async def get_entity(client, entity):
     entity_client = client
