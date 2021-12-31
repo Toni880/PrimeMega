@@ -261,6 +261,7 @@ pgram = Client(
 aiohttpsession = ClientSession()
 # ARQ Client
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
+ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 pbot = Client(
     ":memory:",
     api_id=API_ID,
@@ -271,13 +272,6 @@ pbot = Client(
 apps = []
 apps.append(pbot)
 loop = asyncio.get_event_loop()
-
-ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
-try:
-    ubot2.start()
-except BaseException:
-    print("Userbot Error ! Have you added a STRING_SESSION in deploying??")
-    sys.exit(1)
 
 async def get_entity(client, entity):
     entity_client = client
