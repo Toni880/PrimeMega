@@ -56,11 +56,11 @@ from PrimeMega.ex_plugins.ImageEditor.edit_5 import (  # pylint:disable=import-e
     scanlineglitch_4,
     scanlineglitch_5,
 )
-from PrimeMega import pbot
+from PrimeMega import pgram
 
 lel = 00000000
 # pylint:disable=import-error
-@pbot.on_message(filters.command(["edit", "editor"]))
+@pgram.on_message(filters.command(["edit", "editor"]))
 async def photo(client: pbot, message: Message):
     try:
         if not message.reply_to_message.photo:
