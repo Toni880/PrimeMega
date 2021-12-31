@@ -67,7 +67,7 @@ def _onUnMuteRequest(client, cb):
                 )
 
 
-@pbot.on_message(filters.text & ~filters.private & ~filters.edited, group=1)
+@pgram.on_message(filters.text & ~filters.private & ~filters.edited, group=1)
 def _check_member(client, message):
     chat_id = message.chat.id
     chat_db = sql.fs_settings(chat_id)
@@ -119,7 +119,7 @@ def _check_member(client, message):
                 )
 
 
-@pbot.on_message(filters.command(["forcesubscribe", "fsub"]) & ~filters.private)
+@pgram.on_message(filters.command(["forcesubscribe", "fsub"]) & ~filters.private)
 def config(client, message):
     user = client.get_chat_member(message.chat.id, message.from_user.id)
     if user.status == "creator" or user.user.id in SUDO_USERS:
