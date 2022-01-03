@@ -61,7 +61,7 @@ from PrimeMega import pbot
 lel = 00000000
 # pylint:disable=import-error
 @pbot.on_message(filters.command(["edit", "editor"]))
-async def photo(client: pgram, message: Message):
+async def photo(client: pbot, message: Message):
     try:
         if not message.reply_to_message.photo:
             await client.send_message(message.chat.id, "Reply to an image man!ㅤㅤ")
@@ -127,7 +127,7 @@ async def photo(client: pgram, message: Message):
 
 
 @pbot.on_callback_query()
-async def cb_handler(client: pgram, query: CallbackQuery):
+async def cb_handler(client: pbot, query: CallbackQuery):
     user_id = query.from_user.id
     if lel == user_id:
         if query.data == "removebg":
