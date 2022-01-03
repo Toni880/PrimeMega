@@ -438,8 +438,8 @@ def prime_about_callback(update, context):
         )
     elif query.data == "prime_support":
         query.message.edit_text(
-            text="*๏ PrimeMega support chats*"
-            "\nJoin My Support Group/Channel for see or report a problem on PrimeMega.",
+            text="*๏ Prime Mega support chats*"
+            "\nJoin My Support Group/Channel for see or report a problem on Prime Mega.",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -458,8 +458,8 @@ def prime_about_callback(update, context):
 
     elif query.data == "prime_credit":
         query.message.edit_text(
-            text=f"<b>๏ Credis for primeMega</b>\n"
-            f"\nHere Developers Making The PrimeMegaRobot",
+            text=f"<b>๏ Credis for Prime Mega</b>\n"
+            f"\nHere Developers Making The Prime Mega",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -491,7 +491,7 @@ def Source_about_callback(update, context):
             "\n • `/skip` - To skipping the player."
             "\n • `/vskip` - To skipping the video stream."
             "\n • `/end` - For end the playback."
-            "\n • `/vend` - For end the video stream."
+            "\n • `/vstop` - For end the video stream."
             "\n • `/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
             "\n\n๏ Command for all members."
             "\n • `/play` or `/ytp` <query> - Playing music via YouTube."
@@ -792,7 +792,7 @@ def main():
         try:
             dispatcher.bot.sendMessage(
                 f"@{SUPPORT_CHAT}", 
-                f"""**PrimeMega Robot Started!**
+                f"""**Prime Mega Started!**
 
 **Python:** `{memek()}`
 **Telegram Library:** `v{peler}`""",
