@@ -10,6 +10,7 @@ from inspect import getfullargspec
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
 from telethon import TelegramClient
+from ptbcontrib.postgres_persistence import PostgresPersistence
 from telethon.sessions import StringSession, MemorySession
 from telegraph import Telegraph
 from pyrogram.types import Message
