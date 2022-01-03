@@ -28,7 +28,6 @@ from PrimeMega import (
     telethn,
     pbot,
     updater,
-    ubot2,
 )
 
 # needed to dynamically load modules
@@ -438,8 +437,8 @@ def prime_about_callback(update, context):
         )
     elif query.data == "prime_support":
         query.message.edit_text(
-            text="*๏ Prime Mega support chats*"
-            "\nJoin My Support Group/Channel for see or report a problem on Prime Mega.",
+            text="*๏ PrimeMega support chats*"
+            "\nJoin My Support Group/Channel for see or report a problem on PrimeMega.",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -458,8 +457,8 @@ def prime_about_callback(update, context):
 
     elif query.data == "prime_credit":
         query.message.edit_text(
-            text=f"<b>๏ Credis for Prime Mega</b>\n"
-            f"\nHere Developers Making The Prime Mega",
+            text=f"<b>๏ Credis for primeMega</b>\n"
+            f"\nHere Developers Making The PrimeMegaRobot",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -491,7 +490,7 @@ def Source_about_callback(update, context):
             "\n • `/skip` - To skipping the player."
             "\n • `/vskip` - To skipping the video stream."
             "\n • `/end` - For end the playback."
-            "\n • `/vstop` - For end the video stream."
+            "\n • `/vend` - For end the video stream."
             "\n • `/musicplayer <on/off>` - Toggle for turn ON or turn OFF the musicplayer."
             "\n\n๏ Command for all members."
             "\n • `/play` or `/ytp` <query> - Playing music via YouTube."
@@ -792,8 +791,7 @@ def main():
         try:
             dispatcher.bot.sendMessage(
                 f"@{SUPPORT_CHAT}", 
-                f"""**Prime Mega Started!**
-
+                f"""**PrimeMega Robot Started!**
 **Python:** `{memek()}`
 **Telegram Library:** `v{peler}`""",
                 parse_mode=ParseMode.MARKDOWN
@@ -864,11 +862,6 @@ def main():
 
     updater.idle()
 
-try:
-    ubot.start()
-except BaseException:
-    print("Userbot Error! Have you added a STRING_SESSION in deploying??")
-    sys.exit(1)
 
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
