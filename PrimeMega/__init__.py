@@ -10,8 +10,8 @@ from inspect import getfullargspec
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
 from telethon import TelegramClient
-from telethon.sessions import StringSession
-from telethon.sessions import MemorySession
+from telethon.sessions import StringSession, MemorySession
+from telegraph import Telegraph
 from pyrogram.types import Message
 from pyrogram import Client, errors
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
