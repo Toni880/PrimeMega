@@ -7,7 +7,7 @@ from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.errors import UserNotParticipantError
 
-from PrimeMega import telethn as Client
+from PrimeMega import telethn as client
 
 spam_chats = []
 
