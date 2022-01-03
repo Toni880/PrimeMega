@@ -219,16 +219,20 @@ else:
 
 from PrimeMega.modules.sql import SESSION
 
+telegraph = Telegraph()
+telegraph.create_account(short_name="Prime")
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
+updater = tg.Updater(
+    token=TOKEN,
+    base_url=BOT_API_URL,
+    workers=min(32, os.cpu_count() + 4),
+    request_kwargs={"read_timeout": 10, "connect_timeout": 10},
+    use_context=True,
+    persistence=PostgresPersistence(session=SESSION),
+)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
-print("[INFO]: INITIALIZING AIOHTTP SESSION")
-aiohttpsession = ClientSession()
-# ARQ Client
-print("[INFO]: INITIALIZING ARQ CLIENT")
-arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
-
+session_name = TOKEN.split(":")[0]
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 try:
     ubot2.start()
