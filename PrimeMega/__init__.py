@@ -237,6 +237,17 @@ updater = tg.Updater(
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 session_name = TOKEN.split(":")[0]
+pgram = Client(
+    session_name,
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=TOKEN,
+)
+# AioHttp Session
+aiohttpsession = ClientSession()
+# ARQ Client
+arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
+
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 try:
     ubot2.start()
@@ -244,16 +255,16 @@ except BaseException:
     print("Userbot Error ! Have you added a STRING_SESSION in deploying??")
     sys.exit(1)
 
-pgram = Client(
-    session_name,
+pbot = Client(
+    ":memory:",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=TOKEN,
+    workers=min(32, os.cpu_count() + 4),
 )
 apps = []
 apps.append(pbot)
-
-
+loop = asyncio.get_event_loop()
 async def get_entity(client, entity):
     entity_client = client
     if not isinstance(entity, Chat):
