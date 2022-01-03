@@ -17,6 +17,7 @@ from pyrogram import Client, errors
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
 from pyrogram.types import Chat, User
 from telegraph import Telegraph
+from ptbcontrib.postgres_persistence import PostgresPersistence
 
 
 StartTime = time.time()
@@ -26,6 +27,10 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
     level=logging.INFO,
+)
+logging.getLogger("pyrogram").setLevel(logging.INFO)
+logging.getLogger("ptbcontrib.postgres_persistence.postgrespersistence").setLevel(
+    logging.WARNING
 )
 
 LOGGER = logging.getLogger(__name__)
