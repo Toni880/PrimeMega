@@ -82,8 +82,8 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     SESSION_STRING = os.environ.get("SESSION_STRING", None)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    DATABASE_URL = os.environ.get("DATABASE_URL", None)
-    DATABASE_URL = DATABASE_URL.replace(
+    DB_URL = os.environ.get("DATABASE_URL", None)
+    DB_URL = DB_URL.replace(
         "postgres", "postgresql"
     )  # Sqlalchemy dropped support for "postgres" name.
     # https://stackoverflow.com/questions/62688256/sqlalchemy-exc-nosuchmoduleerror-cant-load-plugin-sqlalchemy-dialectspostgre
