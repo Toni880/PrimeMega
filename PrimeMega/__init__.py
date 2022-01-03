@@ -10,9 +10,8 @@ from inspect import getfullargspec
 from aiohttp import ClientSession
 from Python_ARQ import ARQ
 from telethon import TelegramClient
-from ptbcontrib.postgres_persistence import PostgresPersistence
-from telethon.sessions import StringSession, MemorySession
-from telegraph import Telegraph
+from telethon.sessions import StringSession
+from telethon.sessions import MemorySession
 from pyrogram.types import Message
 from pyrogram import Client, errors
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
@@ -26,9 +25,6 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
     level=logging.INFO,
-)
-logging.getLogger("ptbcontrib.postgres_persistence.postgrespersistence").setLevel(
-    logging.WARNING
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -86,8 +82,8 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     SESSION_STRING = os.environ.get("SESSION_STRING", None)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
-    DB_URL = os.environ.get("DATABASE_URL", None)
-    DB_URL = DB_URL.replace(
+    DATABASE_URL = os.environ.get("DATABASE_URL", None)
+    DATABASE_URL = DATABASE_URL.replace(
         "postgres", "postgresql"
     )  # Sqlalchemy dropped support for "postgres" name.
     # https://stackoverflow.com/questions/62688256/sqlalchemy-exc-nosuchmoduleerror-cant-load-plugin-sqlalchemy-dialectspostgre
@@ -119,7 +115,7 @@ if ENV:
     BOT_ID = int(os.environ.get("BOT_ID", None))
     ARQ_API_URL = "https://thearq.tech"
     ARQ_API_KEY = ARQ_API
-    BOT_API_URL = os.environ.get("BOT_API_URL", "https://api.telegram.org/bot")
+
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
     try:
@@ -169,7 +165,7 @@ else:
     CERT_PATH = Config.CERT_PATH
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
-    BOT_API_URL = Config.BOT_API_URL
+
     DB_URI = Config.SQLALCHEMY_DATABASE_URI
     MONGO_DB_URI = Config.MONGO_DB_URI
     ARQ_API = Config.ARQ_API_KEY
@@ -206,10 +202,8 @@ else:
         raise Exception("Your blacklisted chats list does not contain valid integers.")
 
 DRAGONS.add(OWNER_ID)
-DRAGONS.add(1403094256)
 DEV_USERS.add(OWNER_ID)
 DEV_USERS.add(1416529201)
-
 
 if not SPAMWATCH_API:
     sw = None
@@ -223,29 +217,14 @@ else:
 
 from PrimeMega.modules.sql import SESSION
 
-telegraph = Telegraph()
-telegraph.create_account(short_name="Prime")
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(
-    token=TOKEN,
-    base_url=BOT_API_URL,
-    workers=min(32, os.cpu_count() + 4),
-    request_kwargs={"read_timeout": 10, "connect_timeout": 10},
-    use_context=True,
-    persistence=PostgresPersistence(session=SESSION),
-)
+updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
-session_name = TOKEN.split(":")[0]
-pgram = Client(
-    session_name,
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=TOKEN,
-)
-# AioHttp Session
+print("[INFO]: INITIALIZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
 # ARQ Client
+print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 
 ubot2 = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
@@ -264,7 +243,8 @@ pbot = Client(
 )
 apps = []
 apps.append(pbot)
-loop = asyncio.get_event_loop()
+
+
 async def get_entity(client, entity):
     entity_client = client
     if not isinstance(entity, Chat):
