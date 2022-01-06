@@ -96,7 +96,7 @@ buttons = [
         ),
     ],
     [
-        InlineKeyboardButton(text="About", callback_data="prime_"
+        InlineKeyboardButton(text="Support", url="https://t.me/PrimeSupportGroup"
         ),
         InlineKeyboardButton(
             text="TryInline", switch_inline_query_current_chat=""
