@@ -87,3 +87,7 @@ multicolorcaptcha
 git+https://github.com/python-telegram-bot/ptbcontrib.git
 hiredis
 pretty_errors
+requests_html
+ShazamAPI
+html-telegraph-poster
+qrcode
