@@ -29,5 +29,6 @@ Link To File:
 ❂ /tgm : Get Telegraph Link Of Replied Media
 ❂ /tgt: Get Telegraph Link of Replied Text
  Tagger
-❂ /tagall : for tag everyone at least 100 member first.
+❂ /all [message] : for mention everyone
+❂ /cancel : for stopped mention bot
 """
