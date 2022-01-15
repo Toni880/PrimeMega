@@ -53,6 +53,8 @@ from telegram.ext import (
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
+from PrimeMega.modules.language import gs
+
 
 
 def get_readable_time(seconds: int) -> str:
@@ -80,33 +82,82 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = """
- ───「[Prime Mega](https://t.me/PrimeMegaBot)」───
-*Hello {} !*
-────────────────────────
-PrimeMega a powerful group management bot built to help you manage your group!
-────────────────────
-Hit the /help or tap on button to se available command on me.
-"""
+def start(update: Update, context: CallbackContext):
+    args = context.args
+    chat = update.effective_chat
+    uptime = get_readable_time((time.time() - StartTime))
+    if update.effective_chat.type == "private":
+        if len(args) >= 1:
+            if args[0].lower() == "help":
+                send_help(
+                    update.effective_chat.id, 
+                    text=gs(
+                        chat.id,
+                        "pm_help_text"
+                    ),
+                )
+            elif args[0].lower().startswith("ghelp_"):
+                mod = args[0].lower().split("_", 1)[1]
+                if not HELPABLE.get(mod, False):
+                    return
+                send_help(
+                    update.effective_chat.id,
+                    HELPABLE[mod].helps,
+                    InlineKeyboardMarkup(
+                        [
+                            [
+                                InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="help_back"),
+                            ]
+                        ]
+                    ),
+                )
 
-buttons = [
-        [
-        InlineKeyboardButton(
-            text="➕️ Add Prime Mega to your group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="Support", url="https://t.me/PrimeSupportGroup"
-        ),
-        InlineKeyboardButton(
-            text="TryInline", switch_inline_query_current_chat=""
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="Help & Commands❔", callback_data="help_back"
-        ),
-    ],
-]
+            elif args[0].lower().startswith("stngs_"):
+                match = re.match("stngs_(.*)", args[0].lower())
+                chat = dispatcher.bot.getChat(match.group(1))
+
+                if is_user_admin(chat, update.effective_user.id):
+                    send_settings(match.group(1), update.effective_user.id, False)
+                else:
+                    send_settings(match.group(1), update.effective_user.id, True)
+
+            elif args[0][1:].isdigit() and "rules" in IMPORTED:
+                IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
+
+        else:
+            first_name = update.effective_user.first_name
+            update.effective_message.reply_text(
+                text=gs(chat.id, "pm_start_text").format(
+                    escape_markdown(first_name),
+                    escape_markdown(uptime),
+                    sql.num_users(),
+                    sql.num_chats()),                        
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(text=gs(chat.id, "about_button"), callback_data="siesta_"),
+                        ],
+                        [
+                            InlineKeyboardButton(text=gs(chat.id, "help_button"), callback_data="help_back"),
+                            InlineKeyboardButton(text=gs(chat.id, "inline_button"), switch_inline_query_current_chat=""),
+                        ],
+                        [
+                            InlineKeyboardButton(
+                                text=gs(chat.id, "add_bot_to_group_button"), url="t.me/Siestaxbot?startgroup=new"),
+                        ]
+                    ]
+                ),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+                disable_web_page_preview=False,
+            )
+    else:
+        update.effective_message.reply_text(
+            text=gs(chat.id, "group_start_text").format(
+                escape_markdown(uptime),
+                ),
+            parse_mode=ParseMode.MARKDOWN
+       )
 
 
 HELP_STRINGS = """
