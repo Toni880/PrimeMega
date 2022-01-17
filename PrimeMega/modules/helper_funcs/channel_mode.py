@@ -7,7 +7,7 @@ from telegram.inline.inlinekeyboardbutton import InlineKeyboardButton
 from telegram.inline.inlinekeyboardmarkup import InlineKeyboardMarkup
 
 from PrimeMega import DRAGONS, DEV_USERS, dispatcher
-from PrimeMega.modules.helper_funcs.decorators import primecallback
+from PrimeMega.modules.helper_funcs.decorators import PrimeCALLBACK
 
 
 class AdminPerms(Enum):
