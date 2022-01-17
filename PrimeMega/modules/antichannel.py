@@ -8,7 +8,7 @@ from PrimeMega.modules.helper_funcs.decorators import Primecmd, Primemsg
 from PrimeMega.modules.helper_funcs.channel_mode import user_admin, AdminPerms
 from PrimeMega.modules.sql.antichannel_sql import antichannel_status, disable_antichannel, enable_antichannel
 
-@Primecmd(command="antichannelmode", group=100)
+@Primecmd(command="antich", group=100)
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 def set_antichannel(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -46,8 +46,8 @@ __help__ = """
 *IF YOU USE THIS MODE, THE RESULT IS IN THE GROUP FOREVER YOU CAN'T CHAT USING THE CHANNEL*
 Anti Channel Mode is a mode to automatically ban users who chat using Channels. 
 This command can only be used by *Admins*.
-❂ /antichannelmode <'on'/'yes'> *:* enables anti-channel-mode
-❂ /antichannelmode <'off'/'no'> *:* disabled anti-channel-mode
+❂ /antich <'on'/'yes'> *:* enables anti-channel-mode
+❂ /antich <'off'/'no'> *:* disabled anti-channel-mode
 """
 
 __mod_name__ = "Anti-Channel"
