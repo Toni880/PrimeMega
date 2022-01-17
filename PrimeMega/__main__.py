@@ -53,8 +53,6 @@ from telegram.ext import (
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
-from PrimeMega.modules.language import gs
-
 
 
 def get_readable_time(seconds: int) -> str:
@@ -80,6 +78,36 @@ def get_readable_time(seconds: int) -> str:
     ping_time += ":".join(time_list)
 
     return ping_time
+
+
+PM_START_TEXT = """
+ ───「[Prime Mega](https://t.me/PrimeMegaBot)」───
+*Hello {} !*
+────────────────────────
+PrimeMega a powerful group management bot built to help you manage your group!
+────────────────────
+Hit the /help or tap on button to se available command on me.
+"""
+
+buttons = [
+        [
+        InlineKeyboardButton(
+            text="➕️ Add Prime Mega to your group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
+        ),
+    ],
+    [
+        InlineKeyboardButton(text="Support", url="https://t.me/PrimeSupportGroup"
+        ),
+        InlineKeyboardButton(
+            text="TryInline", switch_inline_query_current_chat=""
+        ),
+    ],
+    [
+        InlineKeyboardButton(text="Help & Commands❔", callback_data="help_back"
+        ),
+    ],
+]
+
 
 HELP_STRINGS = """
 Click on the button bellow to get description about specifics command."""
@@ -159,31 +187,20 @@ def test(update: Update, context: CallbackContext):
 
 def start(update: Update, context: CallbackContext):
     args = context.args
-    chat = update.effective_chat
     uptime = get_readable_time((time.time() - StartTime))
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
-                send_help(
-                    update.effective_chat.id, 
-                    text=gs(
-                        chat.id,
-                        "pm_help_text"
-                    ),
-                )
+                send_help(update.effective_chat.id, HELP_STRINGS)
             elif args[0].lower().startswith("ghelp_"):
                 mod = args[0].lower().split("_", 1)[1]
                 if not HELPABLE.get(mod, False):
                     return
                 send_help(
                     update.effective_chat.id,
-                    HELPABLE[mod].helps,
+                    HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="help_back"),
-                            ]
-                        ]
+                        [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
                     ),
                 )
 
@@ -202,37 +219,22 @@ def start(update: Update, context: CallbackContext):
         else:
             first_name = update.effective_user.first_name
             update.effective_message.reply_text(
-                text=gs(chat.id, "pm_start_text").format(
+                PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
                     sql.num_chats()),                        
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "about_button"), callback_data="siesta_"),
-                        ],
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "help_button"), callback_data="help_back"),
-                            InlineKeyboardButton(text=gs(chat.id, "inline_button"), switch_inline_query_current_chat=""),
-                        ],
-                        [
-                            InlineKeyboardButton(
-                                text=gs(chat.id, "add_bot_to_group_button"), url="t.me/Siestaxbot?startgroup=new"),
-                        ]
-                    ]
-                ),
+                reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=False,
+                disable_web_page_preview=True,
             )
     else:
         update.effective_message.reply_text(
-            text=gs(chat.id, "group_start_text").format(
-                escape_markdown(uptime),
-                ),
-            parse_mode=ParseMode.MARKDOWN
+            f"<b>Hi I'm Prime Mega!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
+            parse_mode=ParseMode.HTML
        )
+
 
 def error_handler(update, context):
     """Log the error and send a telegram message to notify the developer."""
@@ -304,39 +306,25 @@ def help_button(update, context):
     try:
         if mod_match:
             module = mod_match.group(1)
-
-            # Convert Function To String
-            module = module.replace("_", " ")
-            help_list = HELPABLE[module].helps(update.effective_chat.id)
-            if isinstance(help_list, list):
-                help_text = help_list[0]
-            elif isinstance(help_list, str):
-                help_text = help_list
-            
-            # Call The Converted Module
             text = (
-                gs(chat.id, "pm_help_module_text").format(
+                "Here is the help for the *{}* module:\n".format(
                     HELPABLE[module].__mod_name__
                 )
-                + help_text
+                + HELPABLE[module].__help__
             )
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="help_back"),
-                        ]
-                    ]
+                    [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
                 ),
             )
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
             query.message.edit_text(
-                text=gs(chat.id,"pm_help_text"),
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(curr_page - 1, HELPABLE, "help")
@@ -346,7 +334,7 @@ def help_button(update, context):
         elif next_match:
             next_page = int(next_match.group(1))
             query.message.edit_text(
-                text=gs(chat.id,"pm_help_text"),
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(next_page + 1, HELPABLE, "help")
@@ -355,7 +343,7 @@ def help_button(update, context):
 
         elif back_match:
             query.message.edit_text(
-                text=gs(chat.id,"pm_help_text"),
+                text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, HELPABLE, "help")
@@ -372,22 +360,29 @@ def help_button(update, context):
 
 def prime_about_callback(update, context):
     query = update.callback_query
-    chat = update.effective_chat
     if query.data == "prime_":
         query.message.edit_text(
-            text=gs(chat.id, "pm_about_text"),
+            text="๏ I'm *Prime Mega*, a powerful group management bot built to help you manage your group easily."
+            "\n• I can restrict users."
+            "\n• I can greet users with customizable welcome messages and even set a group's rules."
+            "\n• I have an advanced anti-flood system."
+            "\n• I can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc."
+            "\n• I have a note keeping system, blacklists, and even predetermined replies on certain keywords."
+            "\n• I check for admins' permissions before executing any command and more stuffs"
+            "\n\n_PrimeMega's licensed under the GNU General Public License v3.0_"
+            "\n\n Click on button bellow to get basic help for PrimeMega.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [
-                        InlineKeyboardButton(text="Admins", callback_data="prime_admin"),
-                        InlineKeyboardButton(text=gs(chat.id, "notes_button"), callback_data="prime_notes"),
-                    ],
-                    [
-                        InlineKeyboardButton(text=gs(chat.id, "support_chat_link_button"), callback_data="prime_support"),
-                        InlineKeyboardButton(text="Credits", callback_data="prime_credit"),
-                    ],
+                 [
+                    InlineKeyboardButton(text="Admins", callback_data="prime_admin"),
+                    InlineKeyboardButton(text="Notes", callback_data="prime_notes"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Support", callback_data="prime_support"),
+                    InlineKeyboardButton(text="Credits", callback_data="prime_credit"),
+                 ],
                  [
                     InlineKeyboardButton(text="Musicplayer", callback_data="source_"),
                  ],
@@ -401,78 +396,70 @@ def prime_about_callback(update, context):
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_text(
-                text=gs(chat.id, "pm_start_text").format(
+                PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
                     sql.num_chats()),
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "about_button"), callback_data="prime_"),
-                        ],
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "help_button"), callback_data="help_back"),
-                            InlineKeyboardButton(text=gs(chat.id, "inline_button"), switch_inline_query_current_chat=""),
-                        ],
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "add_bot_to_group_button"), url="t.me/PrimeMegaBot?startgroup=new"),
-                        ]
-                    ]
-                ),
+                reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=False,
+                disable_web_page_preview=True,
         )
 
     elif query.data == "prime_admin":
         query.message.edit_text(
-            text=gs(chat.id, "pm_about_admin_text"),
+            text=f"*๏ Let's make your group bit effective now*"
+            "\nCongragulations, Prime Mega now ready to manage your group."
+            "\n\n*Admin Tools*"
+            "\nBasic Admin tools help you to protect and powerup your group."
+            "\nYou can ban members, Kick members, Promote someone as admin through commands of bot."
+            "\n\n*Greetings*"
+            "\nLets set a welcome message to welcome new users coming to your group."
+            "\nsend `/setwelcome [message]` to set a welcome message!",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="prime_"),
-                    ]
-                ]
+                [[InlineKeyboardButton(text="Go Back", callback_data="prime_")]]
             ),
         )
 
     elif query.data == "prime_notes":
         query.message.edit_text(
-            text=gs(chat.id, "pm_about_notes_text"),
-            parse_mode=ParseMode.MARKDOWN,
+            text=f"<b>๏ Setting up notes</b>"
+            f"\nYou can save message/media/audio or anything as notes"
+            f"\nto get a note simply use # at the beginning of a word"
+            f"\n\nYou can also set buttons for notes and filters (refer help menu)",
+            parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="prime_"),
-                    ]
-                ]
+                [[InlineKeyboardButton(text="Go Back", callback_data="prime_")]]
             ),
         )
     elif query.data == "prime_support":
         query.message.edit_text(
-            text=gs(chat.id, "pm_about_support_text"),
+            text="*๏ PrimeMega support chats*"
+            "\nJoin My Support Group/Channel for see or report a problem on PrimeMega.",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [
-                        InlineKeyboardButton(text=gs(chat.id, "support_chat_link_button"), url="t.me/PrimeSupportGroup"),
-                        InlineKeyboardButton(text=gs(chat.id, "updates_channel_link_button"), url="https://t.me/PrimeSupportChannel"),
-                    ],
-                    [
-                        InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="prime_"),
-                    ]
+                 [
+                    InlineKeyboardButton(text="Support", url="t.me/PrimeSupportGroup"),
+                    InlineKeyboardButton(text="Updates", url="https://t.me/PrimeSupportChannel"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Go Back", callback_data="prime_"),
+                 
+                 ]
                 ]
             ),
         )
 
 
-    elif query.data == "siesta_credit":
+    elif query.data == "prime_credit":
         query.message.edit_text(
-            text=gs(chat.id, "pm_about_credit_text"),
-            parse_mode=ParseMode.MARKDOWN,
+            text=f"<b>๏ Credis for primeMega</b>\n"
+            f"\nHere Developers Making The PrimeMegaRobot",
+            parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
@@ -480,7 +467,7 @@ def prime_about_callback(update, context):
                     InlineKeyboardButton(text="x~b", url="t.me/Xbarok"),
                  ],
                  [
-                    InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="prime_"),
+                    InlineKeyboardButton(text="Go Back", callback_data="prime_"),
                  
                  ]
                 ]
@@ -521,25 +508,12 @@ def Source_about_callback(update, context):
     elif query.data == "source_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                text=gs(chat.id, "pm_start_text").format(
+                PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
                     sql.num_chats()),
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "about_button"), callback_data="prime_"),
-                        ],
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "help_button"), callback_data="help_back"),
-                            InlineKeyboardButton(text=gs(chat.id, "inline_button"), switch_inline_query_current_chat=""),
-                        ],
-                        [
-                            InlineKeyboardButton(text=gs(chat.id, "add_bot_to_group_button"), url="t.me/PrimeMegaBot?startgroup=new"),
-                        ]
-                    ]
-                ),
+                reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
                 disable_web_page_preview=True,
@@ -553,16 +527,13 @@ def get_help(update: Update, context: CallbackContext):
     if chat.type != chat.PRIVATE:
         if len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
             module = args[1].lower()
-            moduls = module.capitalize()
             update.effective_message.reply_text(
-                text=gs(chat.id, "group_help_modules_text").format(
-                    escape_markdown(moduls),
-                    ),
+                f"Contact me in PM to get help of {module.capitalize()}",
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                text=gs(chat.id, "group_help_button"),
+                                text="Help",
                                 url="t.me/{}?start=ghelp_{}".format(
                                     context.bot.username, module
                                 ),
@@ -570,16 +541,15 @@ def get_help(update: Update, context: CallbackContext):
                         ]
                     ]
                 ),
-                parse_mode=ParseMode.MARKDOWN,
             )
             return
         update.effective_message.reply_text(
-            text=gs(chat.id, "group_help_text"),
+            "Contact me in PM to get the list of possible commands.",
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text=gs(chat.id, "group_help_button"),
+                            text="Help & Command ❓",
                             url="t.me/{}?start=help".format(context.bot.username),
                         )
                     ]
@@ -594,22 +564,18 @@ def get_help(update: Update, context: CallbackContext):
             "Here is the available help for the *{}* module:\n".format(
                 HELPABLE[module].__mod_name__
             )
-            + HELPABLE[module].helps
+            + HELPABLE[module].__help__
         )
         send_help(
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text=gs(chat.id, "back_button"), callback_data="help_back"),
-                    ]
-                ]
+                [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
             ),
         )
 
     else:
-        send_help(chat.id, "pm_help_text")
+        send_help(chat.id, HELP_STRINGS)
 
 
 def send_settings(chat_id, user_id, user=False):
@@ -621,7 +587,7 @@ def send_settings(chat_id, user_id, user=False):
             )
             dispatcher.bot.send_message(
                 user_id,
-                text=gs(chat_id, "pm_settings_personal_text") + "\n\n" + settings,
+                "These are your current settings:" + "\n\n" + settings,
                 parse_mode=ParseMode.MARKDOWN,
             )
 
@@ -637,7 +603,7 @@ def send_settings(chat_id, user_id, user=False):
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text=gs(chat_id, "pm_settings_group_text").format(
+                text="Which module would you like to check {}'s settings for?".format(
                     chat_name
                 ),
                 reply_markup=InlineKeyboardMarkup(
@@ -666,7 +632,7 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = mod_match.group(1)
             module = mod_match.group(2)
             chat = bot.get_chat(chat_id)
-            text = gs(chat.id, "pm_settings_groups_text").format(
+            text = "*{}* has the following settings for the *{}* module:\n\n".format(
                 escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__
             ) + CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
             query.message.reply_text(
@@ -676,7 +642,7 @@ def settings_button(update: Update, context: CallbackContext):
                     [
                         [
                             InlineKeyboardButton(
-                                text=gs(chat.id, "back_button"),
+                                text="Go Back",
                                 callback_data="stngs_back({})".format(chat_id),
                             )
                         ]
@@ -689,7 +655,8 @@ def settings_button(update: Update, context: CallbackContext):
             curr_page = int(prev_match.group(2))
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                text=gs(chat.id, "pm_settings_groupss_text").format(chat.title),
+                "Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
                         curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id
@@ -702,7 +669,8 @@ def settings_button(update: Update, context: CallbackContext):
             next_page = int(next_match.group(2))
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                text=gs(chat.id, "pm_settings_groupss_text").format(chat.title),
+                "Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
                         next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id
@@ -714,7 +682,8 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = back_match.group(1)
             chat = bot.get_chat(chat_id)
             query.message.reply_text(
-                text=gs(chat.id, "pm_settings_groupss_text").format(escape_markdown(chat.title)),
+                text="Hi there! There are quite a few settings for {} - go ahead and pick what "
+                "you're interested in.".format(escape_markdown(chat.title)),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)
@@ -741,14 +710,14 @@ def get_settings(update: Update, context: CallbackContext):
     # ONLY send settings in PM
     if chat.type != chat.PRIVATE:
         if is_user_admin(chat, user.id):
-            text = gs(chat.id, "group_settings_text")
+            text = "Click here to get this chat's settings, as well as yours."
             msg.reply_text(
                 text,
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                text=gs(chat.id, "group_settings_button"),
+                                text="Settings",
                                 url="t.me/{}?start=stngs_{}".format(
                                     context.bot.username, chat.id
                                 ),
