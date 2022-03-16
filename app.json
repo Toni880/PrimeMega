@@ -89,6 +89,11 @@
          "required": true,
          "value": "PrimeSupportGroup"
       },
+      "SUPPORT_CHANNEL": {
+         "description": "Your Telegram support channel chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to masha support than consider you made an enemy.",
+         "required": true,
+         "value": "PrimeSupportChannel"
+      },
       "MONGO_DB_URI": {
          "description": "Required for database connections.",
          "required": true,
