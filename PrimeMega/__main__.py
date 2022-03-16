@@ -25,6 +25,7 @@ from PrimeMega import (
     URL,
     WEBHOOK,
     SUPPORT_CHAT,
+    SUPPORT_CHANNEL,
     dispatcher,
     StartTime,
     telethn,
