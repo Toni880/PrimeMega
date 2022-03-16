@@ -1,7 +1,10 @@
 import os
 import re
 from platform import python_version as kontol
-from telegram import __version__ as telever
+from telegram import (
+  __version__ as telever,
+  InlineKeyboardButton,
+)
 from telethon import (
   events,
   Button,
@@ -29,5 +32,10 @@ async def awake(event):
   PRIME += f"⚪ **Telethon Version :** `{tlhver}` \n\n"
   PRIME += f"⚪ **Pyrogram Version :** `{pyrover}` \n\n"
   PRIME += "**Thanks For Adding Me Here ❤️**"
-  BUTTON = [[Button.url("ʜᴇʟᴘ​", f"https://t.me/{BOT_USERNAME}?start=help"), Button.url("sᴜᴘᴘᴏʀᴛ​", "https://t.me/PrimeSupportGroup")]]
+  BUTTON = [
+    [
+      InlineKeyboardButton(text="Help", url=f"https://t.me/{BOT_USERNAME}start=help"),
+      InlineKeyboardButton(text="Support", url=f"https://t.me/{SUPPORT_CHAT}"),
+    ]
+  ]
   await tbot.send_file(event.chat_id, PHOTO, caption=PRIME,  buttons=BUTTON)
