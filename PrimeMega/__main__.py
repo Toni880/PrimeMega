@@ -20,6 +20,8 @@ from PrimeMega import (
     PORT,
     SUPPORT_CHAT,
     TOKEN,
+    BOT_USERNAME,
+    BOT_TOKEN,
     URL,
     WEBHOOK,
     SUPPORT_CHAT,
@@ -80,8 +82,8 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = """
- ───「[Prime Mega](https://t.me/PrimeMegaBot)」───
+PM_START_TEXT = f"""
+ ───「[{BOT_NAME}](https://t.me/{BOT_USERNAME})」───
 *Hello {} !*
 ────────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
@@ -92,11 +94,11 @@ Hit the /help or tap on button to se available command on me.
 buttons = [
         [
         InlineKeyboardButton(
-            text="➕️ Add Prime Mega to your group ➕️", url="t.me/PrimeMegaBot?startgroup=true"
+            text=f"➕️ Add {BOT_NAME} to your group ➕️", url=f"t.me/{BOT_USERNAME}?startgroup=true"
         ),
     ],
     [
-        InlineKeyboardButton(text="Support", url="https://t.me/PrimeSupportGroup"
+        InlineKeyboardButton(text="Support", url=f"https://t.me/{SUPPORT_CHAT}"
         ),
         InlineKeyboardButton(
             text="TryInline", switch_inline_query_current_chat=""
@@ -200,7 +202,12 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="Go Back", callback_data="help_back")
+                            ]
+                        ]
                     ),
                 )
 
@@ -231,7 +238,7 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_text(
-            f"<b>Hi I'm Prime Mega!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
+            f"<b>Hi I'm {BOT_NAME}!</b>\n<b>Started working since:</b> <code>{uptime}</code>",
             parse_mode=ParseMode.HTML
        )
 
@@ -317,7 +324,12 @@ def help_button(update, context):
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Go Back", callback_data="help_back")
+                        ]
+                    ]
                 ),
             )
 
@@ -362,15 +374,15 @@ def prime_about_callback(update, context):
     query = update.callback_query
     if query.data == "prime_":
         query.message.edit_text(
-            text="๏ I'm *Prime Mega*, a powerful group management bot built to help you manage your group easily."
+            text=f"๏ I'm *{BOT_NAME}*, a powerful group management bot built to help you manage your group easily."
             "\n• I can restrict users."
             "\n• I can greet users with customizable welcome messages and even set a group's rules."
             "\n• I have an advanced anti-flood system."
             "\n• I can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc."
             "\n• I have a note keeping system, blacklists, and even predetermined replies on certain keywords."
             "\n• I check for admins' permissions before executing any command and more stuffs"
-            "\n\n_PrimeMega's licensed under the GNU General Public License v3.0_"
-            "\n\n Click on button bellow to get basic help for PrimeMega.",
+            f"\n\n_{BOT_NAME}'s licensed under the GNU General Public License v3.0_"
+            f"\n\n Click on button bellow to get basic help for {BOT_NAME}.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -437,14 +449,14 @@ def prime_about_callback(update, context):
         )
     elif query.data == "prime_support":
         query.message.edit_text(
-            text="*๏ PrimeMega support chats*"
+            text=f"*๏ {BOT_NAME} support chats*"
             "\nJoin My Support Group/Channel for see or report a problem on PrimeMega.",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Support", url="t.me/PrimeSupportGroup"),
-                    InlineKeyboardButton(text="Updates", url="https://t.me/PrimeSupportChannel"),
+                    InlineKeyboardButton(text="Support", url=f"t.me/{SUPPORT_CHAT}"),
+                    InlineKeyboardButton(text="Updates", url=f"https://t.me/{SUPPORT_CHANNEL}"),
                  ],
                  [
                     InlineKeyboardButton(text="Go Back", callback_data="prime_"),
