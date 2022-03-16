@@ -17,6 +17,7 @@ from PrimeMega import (
   BOT_USERNAME,
   OWNER_USERNAME,
   PHOTO,
+  SUPPORT_CHAT,
   telethn as tbot,
 )
 
