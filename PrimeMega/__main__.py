@@ -83,8 +83,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = f"""
- ───「["{BOT_NAME}"]("https://t.me/{BOT_USERNAME}")」───
+PM_START_TEXT = """
 *Hello {} !*
 ────────────────────────
 PrimeMega a powerful group management bot built to help you manage your group!
