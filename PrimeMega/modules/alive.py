@@ -22,8 +22,6 @@ from PrimeMega import (
 )
 
 
-PHOTO = ""
-
 @register(pattern=("/alive"))
 async def awake(event):
   PRIME = f"**Hi [{event.sender.first_name}](tg://user?id={event.sender.id}), I'm {BOT_NAME}.** \n\n"
