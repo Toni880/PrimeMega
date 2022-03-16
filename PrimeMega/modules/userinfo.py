@@ -32,6 +32,8 @@ from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
     
 from PrimeMega import (
+    BOT_USERNAME,
+    BOT_NAME,
     DEV_USERS,
     OWNER_ID,
     DRAGONS,
@@ -458,7 +460,7 @@ def set_about_me(update: Update, context: CallbackContext):
 
 @sudo_plus
 def stats(update: Update, context: CallbackContext):
-    stats = "❂ <b>Stats For <a href='https://t.me/PrimeMegaBot'>Prime Mega</a>:</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
+    stats = f"❂ <b>Stats For <a href='https://t.me/{BOT_USERNAME}'>{BOT_NAME}</a>:</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
     result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
     update.effective_message.reply_text(
         result,
