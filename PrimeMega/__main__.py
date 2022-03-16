@@ -21,7 +21,7 @@ from PrimeMega import (
     SUPPORT_CHAT,
     TOKEN,
     BOT_USERNAME,
-    BOT_TOKEN,
+    BOT_NAME,
     URL,
     WEBHOOK,
     SUPPORT_CHAT,
