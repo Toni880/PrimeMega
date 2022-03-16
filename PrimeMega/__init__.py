@@ -128,6 +128,7 @@ if ENV:
     ARQ_API_URL = "https://thearq.tech/"
     ARQ_API_KEY = "BCYKVF-KYQWFM-JCMORU-RZWOFQ-ARQ"
     ERROR_LOGS = os.environ.get("ERROR_LOGS", -1001578091827)
+    PHOTO = os.environ.get("PHOTO", "https://telegra.ph/file/efc27dec817626cc95016.jpg")
 
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
@@ -209,6 +210,7 @@ else:
     STRING_SESSION = Config.STRING_SESSION
     LASTFM_API_KEY = Config.LASTFM_API_KEY
     CF_API_KEY = Config.CF_API_KEY
+    PHOTO = Config.PHOTO
 
     try:
         BL_CHATS = {int(x) for x in Config.BL_CHATS or []}
