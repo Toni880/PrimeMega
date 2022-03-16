@@ -71,7 +71,10 @@
          "description": "username of your bot without the @",
          "value": "PrimeMegaBot"
       },
-
+      "BOT_NAME": {
+         "description": "name of your bot",
+         "value": "Prime Mega"
+      },
       "BOT_ID": {
          "description": "to get your bot_id using other bot or userbot",
          "value": ""
@@ -119,13 +122,11 @@
          "required": true,
          "value": "-xyz"
      }, 
-
       "API_OPENWEATHER": {
         "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
         "value": "",
         "required": false
       },
-
       "DEV_USERS": {
          "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Masha support then keep the current ID's here at they are and add yours.",
          "required": false,
@@ -135,7 +136,6 @@
             "description": "Get this from @ARQRobot.",
             "required": true
         },
-
       "sw_api": {
          "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
          "required": false,
