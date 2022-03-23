@@ -5,8 +5,8 @@ wget
 gtts
 beautifulsoup4
 requests
-python-telegram-bot==13.10.0
-SQLAlchemy==1.4.29
+python-telegram-bot==13.11.0
+SQLAlchemy==1.4.31
 psycopg2-binary
 feedparser
 faker
@@ -32,7 +32,8 @@ regex
 bleach
 wikipedia
 markdown2
-telethon==1.24.0
+telethon
+requests_html
 telegraph
 heroku3
 spamwatch
@@ -43,7 +44,7 @@ ujson
 pretty_errors
 pygithub
 TgCrypto
-Pyrogram
+pyrogram
 PyDictionary
 yt-dlp
 youtube_search_python
@@ -91,3 +92,7 @@ requests_html
 ShazamAPI
 html-telegraph-poster
 qrcode
+pyYAML
+base58
+pybase64
+pycryptodome
