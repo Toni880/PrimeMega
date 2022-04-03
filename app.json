@@ -141,16 +141,16 @@
          "required": false,
          "value": ""
      },
-        "ARQ_API_KEY": {
-            "description": "Get this from @ARQRobot.",
-            "required": true
-            "value": ""
-        },
-        "ARQ_API_URL": {
-            "description": "Url arq dont change this",
-            "required": true
-            "value": "https://arq.hamker.in"
-        },
+      "ARQ_API_KEY": {
+         "description": "Get this from @ARQRobot.",
+         "required": true
+         "value": ""
+     },
+      "ARQ_API_URL": {
+         "description": "Url arq dont change this",
+         "required": true
+         "value": "https://arq.hamker.in"
+     },
       "sw_api": {
          "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
          "required": false,
