@@ -53,11 +53,7 @@
          "required": true,
          "value": "1416529201"
      },
-      "PHOTO": {
-         "description": "Your image for alive bot",
-         "required": false,
-         "value": ""
-     },
+
       "STRING_SESSION": {
          "description": "Fill with telethon string session.",
          "required": true,
@@ -141,16 +137,6 @@
          "required": false,
          "value": ""
      },
-      "ARQ_API_KEY": {
-         "description": "Get this from @ARQRobot.",
-         "required": true
-         "value": ""
-     },
-      "ARQ_API_URL": {
-         "description": "Url arq dont change this",
-         "required": true
-         "value": "https://arq.hamker.in"
-     },
       "sw_api": {
          "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
          "required": false,
@@ -222,10 +208,15 @@
          "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
          "value": "True"
       },
-        "ARQ_API": {
-            "description": "Get this from @ARQRobot.",
-            "required": true
-        },
+      "ARQ_API_KEY": {
+         "description": "Get this from @ARQRobot.",
+         "required": true,
+      },
+      "ARQ_API_URL": {	
+         "description": "Url arq dont change this",	
+         "required": true,
+         "value": "https://arq.hamker.in"	
+      }
       "BAN_STICKER": {
          "description": "ID of the sticker you want to use when banning people.",
          "required": false,
