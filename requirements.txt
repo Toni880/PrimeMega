@@ -1,4 +1,3 @@
-NumPy==1.22.3
 future
 emoji
 lxml
