@@ -5,8 +5,8 @@ wget
 gtts
 beautifulsoup4
 requests
-python-telegram-bot==13.11.0
-SQLAlchemy==1.4.31
+python-telegram-bot==13.10.0
+SQLAlchemy==1.4.29
 psycopg2-binary
 feedparser
 faker
@@ -27,13 +27,11 @@ googletrans
 google-trans-new
 jikanpy
 speedtest-cli
-coffeehouse
 regex
 bleach
 wikipedia
 markdown2
-telethon
-requests_html
+telethon==1.24.0
 telegraph
 heroku3
 spamwatch
@@ -44,7 +42,7 @@ ujson
 pretty_errors
 pygithub
 TgCrypto
-pyrogram==1.4.12
+pyrogram==1.4.16
 PyDictionary
 yt-dlp
 youtube_search_python
@@ -72,7 +70,7 @@ python-arq
 envparse
 #profanity (Credits to Julia)
 better_profanity
-textblob 
+textblob
 nudepy
 nekos.py
 motor
@@ -89,10 +87,4 @@ git+https://github.com/python-telegram-bot/ptbcontrib.git
 hiredis
 pretty_errors
 requests_html
-ShazamAPI
-html-telegraph-poster
 qrcode
-pyYAML
-base58
-pybase64
-pycryptodome
