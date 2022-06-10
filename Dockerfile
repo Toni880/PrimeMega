@@ -1,4 +1,3 @@
-# We're using Debian Slim Buster image
 FROM python:3.10.1-slim-buster
 
 ENV PIP_NO_CACHE_DIR 1
@@ -65,7 +64,7 @@ RUN apt update && apt upgrade -y && \
 RUN pip3 install --upgrade pip setuptools
 
 # Copy Python Requirements to /root/PrimeMega 
-RUN git clone -b shiken https://github.com/Tonic990/PrimeMega /root/PrimeMega
+RUN git clone -b Master https://github.com/Toni880/PrimeMega /root/PrimeMega
 WORKDIR /root/PrimeMega
 
 #Copy config file to /root/PrimeMega/PrimeMega
