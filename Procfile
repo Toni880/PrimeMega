@@ -1,1 +1,1 @@
-worker: python3 -m PrimeMega
+worker: bash start
