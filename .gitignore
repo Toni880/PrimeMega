@@ -1,17 +1,17 @@
 # Config files, logs and stuff
-SkyzuRobot/modules/helper_funcs/temp.txt
-SkyzuRobot/elevated_users.json
-SkyzuRobot/config.py
-SkyzuRobot/config.ini
+PrimeMega/modules/helper_funcs/temp.txt
+PrimeMega/elevated_users.json
+PrimeMega/config.py
+PrimeMega/config.ini
 log.txt
 kangsticker.png
 updates.txt
 start_service.bat
 
 # Session files
-SkyzuRobot/*.session
-SkyzuRobot/*.session-journal
-Skyzu.session-journal
+PrimeMega/*.session
+PrimeMega/*.session-journal
+PrimeMega.session-journal
 *.session
 
 # Byte-compiled / optimized / DLL files
