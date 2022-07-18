@@ -40,7 +40,7 @@ root@PrimeMega~ $ git clone https://github.com/Toni880/PrimeMega
 root@PrimeMega~ $ pip3 install -U -r requirements.txt
 root@PrimeMega~ $ cp prime.env .env
 root@PrimeMega~ $ nano .env
-root@PrimeMega~ $ python3 -m PrimeMega
+root@PrimeMega~ $ bash start
 ```
 
 </details>
