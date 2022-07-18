@@ -1,4 +1,4 @@
-dotenv
+python-dotenv
 future
 emoji
 lxml
