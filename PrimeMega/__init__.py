@@ -129,7 +129,6 @@ if ENV:
     ARQ_API_URL = os.environ.get("ARQ_API_URL", "http://arq.hamker.dev")
     ARQ_API_KEY = os.environ.get("ARQ_API_KEY", None)
     ERROR_LOGS = os.environ.get("ERROR_LOGS", -1001578091827)
-    SIBYL_KEY = os.environ.get("SIBYL_KEY")
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
 
     try:
@@ -214,7 +213,6 @@ else:
     STRING_SESSION = Config.STRING_SESSION
     LASTFM_API_KEY = Config.LASTFM_API_KEY
     CF_API_KEY = Config.CF_API_KEY
-    SIBYL_KEY = Config.SIBYL_KEY
 
     try:
         BL_CHATS = {int(x) for x in Config.BL_CHATS or []}
