@@ -44,6 +44,7 @@ class Config(object):
    BOT_USERNAME = os.getenv("BOT_USERNAME")
    BOT_ID = os.getenv("BOT_ID")
    OPENWEATHERMAP_ID = "22322"
+   SUPPORT_CHAT = os.getenv("SUPPORT_CHAT", "PrimeSupportChannel")
     
 
     # OPTIONAL
