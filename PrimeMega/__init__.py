@@ -180,6 +180,7 @@ else:
     CERT_PATH = Config.CERT_PATH
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
+    BOT_NAME = Config.BOT_NAME
     BOT_ID = Config.BOT_ID
     ERROR_LOGS = Config.ERROR_LOGS
     DB_URL = Config.SQLALCHEMY_DATABASE_URI
