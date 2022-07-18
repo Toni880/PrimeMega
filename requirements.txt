@@ -1,3 +1,4 @@
+dotenv
 future
 emoji
 lxml
