@@ -1,6 +1,7 @@
 {
       "name": "Prime Mega",
       "description": "A Powerful  Telegram group management bot with autobots theme.",
+      "stack": "heroku-22",
       "keywords": [
          "telegram",
          "advance",
